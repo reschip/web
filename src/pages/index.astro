@@ -1,53 +1,52 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+const posts = await getCollection('blog', ({ data }) =>
+  import.meta.env.PROD ? !data.draft : true
+);
+
+const grouped = {
+  All: posts,
+  Personal: posts.filter(p => p.data.category === 'Personal'),
+  Dev: posts.filter(p => p.data.category === 'Dev'),
+  Labs: posts.filter(p => p.data.category === 'Labs'),
+  "AI Week": posts.filter(p => p.data.category === 'AI Week'),
+};
 ---
 
 <Layout>
-	<main class="bg-green-100 min-h-screen p-4 md:p-6 lg:p-8">
-		<div class="w-[90%] md:w-[80%] lg:w-[65%] mx-auto text-center">
-			<nav class="mb-8 md:mb-12 lg:mb-16">
-				<ul class="flex justify-center space-x-4 md:space-x-8 agbalumo-regular text-base md:text-lg">
-					<li><a href="/about" class="text-[#00AC7B] hover:underline">About</a></li>
-					<li><a href="/" class="text-[#00AC7B] font-bold border-b-2 border-[#00AC7B]">Home</a></li>
-					<li><a href="/gallery" class="text-[#00AC7B] hover:underline">Gallery</a></li>
-				</ul>
-			</nav>
+	<div class="w-[90%] md:w-[80%] lg:w-[65%] mx-auto text-center">
 
-			<h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-800 mb-4 agbalumo-regular">Andrés Cruz Chipol</h1>
-			<p class="text-base md:text-lg agbalumo-regular text-gray-700 mb-8 md:mb-12 lg:mb-16 max-w-lg mx-auto">
-				I have a degree in Computer Science, I work as an Artificial Intelligence Analyst, 
-				I am a side project enthusiast, passionate about research, and I love computer science.
-			</p>
-			
-			<div class="flex flex-wrap justify-center gap-2 mb-8 md:mb-10">
-				<button class="bg-[#00AC7B] text-white px-4 py-1 rounded-md cursor-pointer hover:bg-white hover:text-[#00AC7B]">ALL</button>
-				<button class="bg-white text-[#00AC7B] px-4 py-1 rounded-md cursor-pointer hover:bg-[#00AC7B] hover:text-white">Personal</button>
-				<button class="bg-white text-[#00AC7B] px-4 py-1 rounded-md cursor-pointer hover:bg-[#00AC7B] hover:text-white">Dev</button>
-				<button class="bg-white text-[#00AC7B] px-4 py-1 rounded-md cursor-pointer hover:bg-[#00AC7B] hover:text-white">Labs</button>
-				<button class="bg-white text-[#00AC7B] px-4 py-1 rounded-md cursor-pointer hover:bg-[#00AC7B] hover:text-white">AI Week</button>
-			</div>
-			
-			<div class="space-y-4 md:space-y-6">
-				<div class="flex flex-col md:flex-row justify-between items-start md:items-center">
-					<h2 class="text-left text-lg font-semibold truncate max-w-full md:max-w-[70%]">Primer Videojuego con raylib</h2>
-					<span class="text-gray-500 text-sm mt-1 md:mt-0">Ene 21, 2025</span>
-				</div>
-				
-				<div class="flex flex-col md:flex-row justify-between items-start md:items-center">
-					<h2 class="text-left text-lg font-semibold truncate max-w-full md:max-w-[70%]">De Estudiante a Profesional: Guía para Conseguir tu Primer Trabajo en Tecnología</h2>
-					<span class="text-gray-500 text-sm mt-1 md:mt-0">Ene 21, 2025</span>
-				</div>
-				
-				<div class="flex flex-col md:flex-row justify-between items-start md:items-center">
-					<h2 class="text-left text-lg font-semibold truncate max-w-full md:max-w-[70%]">Guía para Comenzar con Docker</h2>
-					<span class="text-gray-500 text-sm mt-1 md:mt-0">Ene 21, 2025</span>
-				</div>
-				
-				<div class="flex flex-col md:flex-row justify-between items-start md:items-center">
-					<h2 class="text-left text-lg font-semibold truncate max-w-full md:max-w-[70%]">Hola, Mundo => La Frase del Comienzo</h2>
-					<span class="text-gray-500 text-sm mt-1 md:mt-0">Ene 21, 2025</span>
-				</div>
-			</div>
+		<h1 >Andrés Cruz Chipol</h1>
+						<p class="text-base md:text-lg font-second text-gray-700 mb-8 md:mb-12 lg:mb-16 max-w-lg mx-auto">
+			I have a degree in Computer Science, I work as an Artificial Intelligence Analyst, 
+			I am a side project enthusiast, passionate about research, and I love computer science.
+		</p>
+		
+		<div class="flex flex-wrap justify-center gap-2 mb-8 md:mb-10">
+			<button class="bg-[#00AC7B] text-white px-4 py-1 rounded-md cursor-pointer hover:bg-white hover:text-[#00AC7B]">ALL</button>
+			<button class="bg-white text-[#00AC7B] px-4 py-1 rounded-md cursor-pointer hover:bg-[#00AC7B] hover:text-white">Personal</button>
+			<button class="bg-white text-[#00AC7B] px-4 py-1 rounded-md cursor-pointer hover:bg-[#00AC7B] hover:text-white">Dev</button>
+			<button class="bg-white text-[#00AC7B] px-4 py-1 rounded-md cursor-pointer hover:bg-[#00AC7B] hover:text-white">Labs</button>
+			<button class="bg-white text-[#00AC7B] px-4 py-1 rounded-md cursor-pointer hover:bg-[#00AC7B] hover:text-white">AI Week</button>
 		</div>
-	</main>
+		
+		<div class="space-y-4 md:space-y-6">
+			{grouped.All.map(post => (
+				<div class="flex flex-col md:flex-row justify-between items-start md:items-center">
+				<div class="text-left max-w-full md:max-w-[70%]">
+					<a href={`/posts/${post.data.slug ?? post.id}`} class="hover:underline text-[#00AC7B] font-second">
+					{post.data.title}
+					</a>
+					<p class="text-sm text-gray-600 font-second ">{post.data.description}</p>
+					<p class="text-xs text-gray-500 font-second" >
+					{post.data.pubDate.toDateString()} · {post.data.readingTime} · {post.data.author}
+					</p>
+				</div>
+				</div>
+			))}
+			</div>
+			
+	</div>
 </Layout>

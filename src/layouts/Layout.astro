@@ -10,9 +10,18 @@ import "../styles/global.css";
 	<link rel="icon" type="image/png" href="/profile.png">
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link href="https://fonts.googleapis.com/css2?family=Agbalumo&display=swap" rel="stylesheet">
 </head>
-<body class="">
-	<slot />
+<body class="bg-green-100 min-h-screen p-4 md:p-6 lg:p-8">
+	<nav class="mb-8 md:mb-12 lg:mb-16 ">
+		<ul class="flex justify-center space-x-4 md:space-x-8 text-3xl md:text-3xl">
+			<li><a href="/about" class="text-[#00AC7B] hover:underline font-primary">About</a></li>
+			<li><a href="/" class="text-[#00AC7B] hover:underline font-primary">Home</a></li>
+			<li><a href="/gallery" class="text-[#00AC7B] hover:underline font-primary">Gallery</a></li>
+		  </ul>
+	</nav>
+	<main >
+		<slot />
+	</main>
+	
 </body>
 </html>
