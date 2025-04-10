@@ -2,51 +2,122 @@
 import Layout from '../layouts/Layout.astro';
 import { getCollection } from 'astro:content';
 
+// Obtén todos los posts y filtra borradores según el entorno
 const posts = await getCollection('blog', ({ data }) =>
   import.meta.env.PROD ? !data.draft : true
 );
 
-const grouped = {
-  All: posts,
-  Personal: posts.filter(p => p.data.category === 'Personal'),
-  Dev: posts.filter(p => p.data.category === 'Dev'),
-  Labs: posts.filter(p => p.data.category === 'Labs'),
-  "AI Week": posts.filter(p => p.data.category === 'AI Week'),
-};
+// Ordenar los posts por fecha descendente (más recientes primero)
+posts.sort((a, b) => new Date(b.data.pubDate) - new Date(a.data.pubDate));
 ---
 
 <Layout>
-	<div class="w-[90%] md:w-[80%] lg:w-[65%] mx-auto text-center">
+  <div class="w-[90%] md:w-[80%] lg:w-[65%] mx-auto text-center">
+    <h1 class="text-7xl font-bold text-gray-800 mb-6 mt-6 font-second">Andrés Cruz Chipol</h1>
+    <p class="text-base md:text-lg font-second text-gray-700 mb-8 md:mb-12 lg:mb-16 max-w-lg mx-auto">
+      I have a degree in Computer Science, I work as an Artificial Intelligence Analyst, 
+      I am a side project enthusiast, passionate about research, and I love computer science.
+    </p>
+    
+    <!-- Botones de filtrado: se usa data-folder con valores en minúsculas -->
+    <div class="flex flex-wrap justify-center gap-2 mb-8 md:mb-10">
+      <button data-folder="All" class="filter-btn bg-[#00AC7B] text-white px-4 py-1 rounded-md cursor-pointer hover:bg-white hover:text-[#00AC7B]">ALL</button>
+      <button data-folder="personal" class="filter-btn bg-white text-[#00AC7B] px-4 py-1 rounded-md cursor-pointer hover:bg-[#00AC7B] hover:text-white">Personal</button>
+      <button data-folder="dev" class="filter-btn bg-white text-[#00AC7B] px-4 py-1 rounded-md cursor-pointer hover:bg-[#00AC7B] hover:text-white">Dev</button>
+      <button data-folder="labs" class="filter-btn bg-white text-[#00AC7B] px-4 py-1 rounded-md cursor-pointer hover:bg-[#00AC7B] hover:text-white">Labs</button>
+      <button data-folder="ai-week" class="filter-btn bg-white text-[#00AC7B] px-4 py-1 rounded-md cursor-pointer hover:bg-[#00AC7B] hover:text-white">AI Week</button>
+    </div>
+    
 
-		<h1 >Andrés Cruz Chipol</h1>
-						<p class="text-base md:text-lg font-second text-gray-700 mb-8 md:mb-12 lg:mb-16 max-w-lg mx-auto">
-			I have a degree in Computer Science, I work as an Artificial Intelligence Analyst, 
-			I am a side project enthusiast, passionate about research, and I love computer science.
-		</p>
-		
-		<div class="flex flex-wrap justify-center gap-2 mb-8 md:mb-10">
-			<button class="bg-[#00AC7B] text-white px-4 py-1 rounded-md cursor-pointer hover:bg-white hover:text-[#00AC7B]">ALL</button>
-			<button class="bg-white text-[#00AC7B] px-4 py-1 rounded-md cursor-pointer hover:bg-[#00AC7B] hover:text-white">Personal</button>
-			<button class="bg-white text-[#00AC7B] px-4 py-1 rounded-md cursor-pointer hover:bg-[#00AC7B] hover:text-white">Dev</button>
-			<button class="bg-white text-[#00AC7B] px-4 py-1 rounded-md cursor-pointer hover:bg-[#00AC7B] hover:text-white">Labs</button>
-			<button class="bg-white text-[#00AC7B] px-4 py-1 rounded-md cursor-pointer hover:bg-[#00AC7B] hover:text-white">AI Week</button>
-		</div>
-		
-		<div class="space-y-4 md:space-y-6">
-			{grouped.All.map(post => (
-				<div class="flex flex-col md:flex-row justify-between items-start md:items-center">
-				<div class="text-left max-w-full md:max-w-[70%]">
-					<a href={`/posts/${post.data.slug ?? post.id}`} class="hover:underline text-[#00AC7B] font-second">
-					{post.data.title}
-					</a>
-					<p class="text-sm text-gray-600 font-second ">{post.data.description}</p>
-					<p class="text-xs text-gray-500 font-second" >
-					{post.data.pubDate.toDateString()} · {post.data.readingTime} · {post.data.author}
-					</p>
-				</div>
-				</div>
-			))}
-			</div>
-			
-	</div>
+
+    <!-- Renderizamos todos los posts; se usa directamente post.data.folder -->
+    <div id="posts-container" class="space-y-4 md:space-y-6">
+      {posts.map((post, idx) => {
+        // Obtén la carpeta desde post.data.folder
+        const folder = post.data.folder.toLowerCase();
+        return (
+          <div
+            class="post flex flex-col md:flex-row justify-between items-start md:items-center"
+            data-folder={folder}
+            data-index={idx}
+          >
+            <div class="text-left max-w-full md:max-w-[70%]">
+              <a
+                href={`/posts/${post.data.slug ?? post.id}`}
+                class="hover:underline text-[#00AC7B] font-second"
+              >
+                {post.data.title}
+              </a>
+              <p class="text-sm text-gray-600 font-second">
+                {post.data.description}
+              </p>
+              <p class="text-xs text-gray-500 font-second">
+                {(() => {
+                  const d = new Date(post.data.pubDate);
+                  const options = {
+                    timeZone: 'UTC',
+                    weekday: 'short',
+                    month: 'short',
+                    day: 'numeric',
+                    year: 'numeric'
+                  };
+                  return d.toLocaleDateString('en-US', options).replace(/,/g, '');
+                })()} · {post.data.readingTime} · {post.data.author}
+              </p>
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  </div>
+
+  <!-- Script para filtrar posts por folder -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const postsContainer = document.getElementById('posts-container');
+      const allPosts = Array.from(postsContainer.getElementsByClassName('post'));
+
+      function filterPosts(folder) {
+        // Actualiza la apariencia de los botones
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+          btn.classList.remove('bg-[#00AC7B]', 'text-white');
+          btn.classList.add('bg-white', 'text-[#00AC7B]');
+        });
+        const activeBtn = document.querySelector(`.filter-btn[data-folder="${folder}"]`);
+        if (activeBtn) {
+          activeBtn.classList.remove('bg-white', 'text-[#00AC7B]');
+          activeBtn.classList.add('bg-[#00AC7B]', 'text-white');
+        }
+        
+        if (folder === "All") {
+          // Para "All", mostramos solo los 3 primeros posts del array global
+          allPosts.forEach(post => {
+            const idx = parseInt(post.getAttribute('data-index'));
+            post.style.display = idx < 3 ? "" : "none";
+          });
+        } else {
+          // Filtrar todos los posts que pertenezcan a la carpeta seleccionada
+          const filteredPosts = allPosts.filter(post => 
+            post.getAttribute('data-folder').toLowerCase() === folder
+          );
+          // Oculta todos primero
+          allPosts.forEach(post => (post.style.display = "none"));
+          // Muestra solo los 3 primeros de la categoría filtrada
+          filteredPosts.slice(0, 3).forEach(post => (post.style.display = ""));
+        }
+      }
+
+      // Por defecto, muestra "All"
+      filterPosts("All");
+
+      // Asigna el evento click a cada botón
+      const filterButtons = document.querySelectorAll('.filter-btn');
+      filterButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          const selectedFolder = btn.getAttribute('data-folder');
+          filterPosts(selectedFolder);
+        });
+      });
+    });
+  </script>
 </Layout>

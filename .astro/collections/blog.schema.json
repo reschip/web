@@ -7,6 +7,9 @@
         "title": {
           "type": "string"
         },
+        "slug": {
+          "type": "string"
+        },
         "description": {
           "type": "string"
         },
@@ -26,15 +29,6 @@
             }
           ]
         },
-        "category": {
-          "type": "string",
-          "enum": [
-            "Personal",
-            "Dev",
-            "Labs",
-            "AI Week"
-          ]
-        },
         "draft": {
           "type": "boolean",
           "default": false
@@ -45,7 +39,7 @@
         "author": {
           "type": "string"
         },
-        "slug": {
+        "folder": {
           "type": "string"
         },
         "$schema": {
@@ -56,8 +50,8 @@
         "title",
         "description",
         "pubDate",
-        "category",
-        "author"
+        "author",
+        "folder"
       ],
       "additionalProperties": false
     }

@@ -2,11 +2,11 @@
 title: "Guía para Comenzar con Docker(TEST)"
 slug: "docker"
 description: "Aprende desde cero cómo instalar y usar Docker en tus proyectos, con ejemplos prácticos y una guía paso a paso."
-pubDate: "2025-01-21"
-category: "Dev"
+pubDate: "2025-01-22"
 draft: false
 readingTime: "8 min"
 author: "Andrés Cruz"
+folder: "dev"
 ---
 
 <h2>Introducción</h2>
