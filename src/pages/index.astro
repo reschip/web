@@ -30,45 +30,42 @@ posts.sort((a, b) => new Date(b.data.pubDate) - new Date(a.data.pubDate));
     
 
 
-    <!-- Renderizamos todos los posts; se usa directamente post.data.folder -->
-    <div id="posts-container" class="space-y-4 md:space-y-6">
+    <div id="posts-container" class="space-y-4 md:space-y-10">
       {posts.map((post, idx) => {
-        // Obtén la carpeta desde post.data.folder
         const folder = post.data.folder.toLowerCase();
         return (
           <div
-            class="post flex flex-col md:flex-row justify-between items-start md:items-center"
+            class="post flex flex-col md:flex-row justify-center items-center"
             data-folder={folder}
             data-index={idx}
           >
-            <div class="text-left max-w-full md:max-w-[70%]">
-              <a
-                href={`/posts/${post.data.slug ?? post.id}`}
-                class="hover:underline text-[#00AC7B] font-second"
-              >
-                {post.data.title}
-              </a>
-              <p class="text-sm text-gray-600 font-second">
-                {post.data.description}
-              </p>
-              <p class="text-xs text-gray-500 font-second">
+            {/* Contenedor centrado y con ancho máximo */}
+            <div class="text-center max-w-full md:max-w-[70%] mx-auto">
+              <p class="text-sm text-gray-700  font-second">
                 {(() => {
                   const d = new Date(post.data.pubDate);
                   const options = {
                     timeZone: 'UTC',
-                    weekday: 'short',
                     month: 'short',
                     day: 'numeric',
                     year: 'numeric'
                   };
-                  return d.toLocaleDateString('en-US', options).replace(/,/g, '');
-                })()} · {post.data.readingTime} · {post.data.author}
+                  return d.toLocaleDateString('en-US', options).replace(/,/g, ',');
+                })()}
               </p>
+              <a
+                href={`/posts/${post.data.slug ?? post.id}`}
+                class="hover:underline text-[#00AC7B] hover:text-gray-700 font-normal text-2xl font-second block"
+              >
+                {post.data.title}
+              </a>
             </div>
           </div>
         );
       })}
     </div>
+
+
   </div>
 
   <!-- Script para filtrar posts por folder -->
