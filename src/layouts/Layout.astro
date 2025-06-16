@@ -1,27 +1,65 @@
 ---
 import "../styles/global.css";
+
+export interface Props {
+  title: string;
+}
+
+const { title } = Astro.props;
+
 ---
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Andrés Cruz Chipol</title>
-	<link rel="icon" type="image/png" href="/profile.png">
-	<link rel="preconnect" href="https://fonts.googleapis.com">
-	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Aleo:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+  <title>{title}</title>
 </head>
-<body class="bg-green-100 min-h-screen p-4 md:p-6 lg:p-8">
-	<nav class="mb-8 md:mb-12 lg:mb-16 ">
-		<ul class="flex justify-center space-x-4 md:space-x-8 text-3xl md:text-3xl">
-			<li><a href="/about" class="text-[#00AC7B] hover:underline font-primary">About</a></li>
-			<li><a href="/" class="text-[#00AC7B] hover:underline font-primary">Home</a></li>
-			<li><a href="/gallery" class="text-[#00AC7B] hover:underline font-primary">Gallery</a></li>
-		  </ul>
-	</nav>
-	<main >
-		<slot />
-	</main>
-	
+<body>
+  <div class="wrapper">
+    <main class="container">
+      <slot />
+    </main>
+  </div>
 </body>
 </html>
+
+<style>
+  * {
+    box-sizing: border-box;
+  }
+  
+  body {
+    margin: 0;
+    padding: 0;
+  }
+  
+  .wrapper {
+    width: 100%;
+    padding: 0 1rem; /* Espaciado en móviles */
+  }
+  
+  .container {
+    max-width: 800px; /* Ancho máximo del contenedor */
+    margin: 0 auto; /* Centrado horizontal */
+    padding: 2rem 0;
+    width: 100%;
+    overflow-x: hidden; /* Evita que el contenido se salga horizontalmente */
+    font-family:Aleo;
+  }
+  
+  /* Responsive */
+  @media (max-width: 768px) {
+    .wrapper {
+      padding: 0 0.5rem;
+    }
+    
+    .container {
+      padding: 1rem 0;
+    }
+  }
+</style>

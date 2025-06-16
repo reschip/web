@@ -1,120 +1,503 @@
 ---
+// index.astro
 import Layout from '../layouts/Layout.astro';
-import { getCollection } from 'astro:content';
-
-// Obtén todos los posts y filtra borradores según el entorno
-const posts = await getCollection('blog', ({ data }) =>
-  import.meta.env.PROD ? !data.draft : true
-);
-
-// Ordenar los posts por fecha descendente (más recientes primero)
-posts.sort((a, b) => new Date(b.data.pubDate) - new Date(a.data.pubDate));
 ---
 
-<Layout>
-  <div class="w-[90%] md:w-[80%] lg:w-[65%] mx-auto text-center">
-    <h1 class="text-7xl font-bold text-gray-800 mb-6 mt-6 font-second">Andrés Cruz Chipol</h1>
-    <p class="text-base md:text-lg font-second text-gray-700 mb-8 md:mb-12 lg:mb-16 max-w-lg mx-auto">
-      I have a degree in Computer Science, I work as an Artificial Intelligence Analyst, 
-      I am a side project enthusiast, passionate about research, and I love computer science.
+<Layout title="Mi Portfolio">
+  <canvas id="game-of-life-canvas"></canvas>
+
+  <section class="min-h-screen flex flex-col justify-center items-center text-center text-[20px] gap-[40px]">
+    <h1 class="bg-[navajowhite] rounded-[10px] px-[25px] py-[2px] font-extrabold text-[50px]">
+      Andres Cruz Chipol
+    </h1>
+    <p class="text-[25px]">
+      Computer scientist focused on Artificial Intelligence, where theory and practice become one. Research enthusiast and supporter of open source.
     </p>
-    
-    <!-- Botones de filtrado: se usa data-folder con valores en minúsculas -->
-    <div class="flex flex-wrap justify-center gap-2 mb-8 md:mb-10">
-      <button data-folder="All" class="filter-btn bg-[#00AC7B] text-white px-4 py-1 rounded-md cursor-pointer hover:bg-white hover:text-[#00AC7B]">ALL</button>
-      <button data-folder="personal" class="filter-btn bg-white text-[#00AC7B] px-4 py-1 rounded-md cursor-pointer hover:bg-[#00AC7B] hover:text-white">Personal</button>
-      <button data-folder="dev" class="filter-btn bg-white text-[#00AC7B] px-4 py-1 rounded-md cursor-pointer hover:bg-[#00AC7B] hover:text-white">Dev</button>
-      <button data-folder="labs" class="filter-btn bg-white text-[#00AC7B] px-4 py-1 rounded-md cursor-pointer hover:bg-[#00AC7B] hover:text-white">Labs</button>
-      <button data-folder="ai-week" class="filter-btn bg-white text-[#00AC7B] px-4 py-1 rounded-md cursor-pointer hover:bg-[#00AC7B] hover:text-white">AI Week</button>
-    </div>
-    
+  </section>
 
+  <section style="margin-bottom: 20px;">
+    <h2 class="section-title">About</h2>
+    <p>I was born in Mexico, in a developing city where the river whispers stories to the sun and oil sleeps beneath cacao trees that dream of rain.</p>
+    </p> <br>
+    <p>
+    I traveled where the sea murmurs winds from the Isthmus and ships dance to the rhythm of the sandunga.
+    </p> <br>
+    <p>  learned where domes touch the sky amid the scents of talavera and mole, and time walks through alleyways filled with history.
+    </p>
+  </section>
 
-    <div id="posts-container" class="space-y-4 md:space-y-10">
-      {posts.map((post, idx) => {
-        const folder = post.data.folder.toLowerCase();
-        return (
-          <div
-            class="post flex flex-col md:flex-row justify-center items-center"
-            data-folder={folder}
-            data-index={idx}
-          >
-            {/* Contenedor centrado y con ancho máximo */}
-            <div class="text-center max-w-full md:max-w-[70%] mx-auto">
-              <p class="text-sm text-gray-700  font-second">
-                {(() => {
-                  const d = new Date(post.data.pubDate);
-                  const options = {
-                    timeZone: 'UTC',
-                    month: 'short',
-                    day: 'numeric',
-                    year: 'numeric'
-                  };
-                  return d.toLocaleDateString('en-US', options).replace(/,/g, ',');
-                })()}
-              </p>
-              <a
-                href={`/posts/${post.data.slug ?? post.id}`}
-                class="hover:underline text-[#00AC7B] hover:text-gray-700 font-normal text-2xl font-second block"
-              >
-                {post.data.title}
-              </a>
+  <section style="background-color: #f9f8f596;">
+        <h2 class="section-title">Work Experience</h2>
+        <div class="experience-item">
+            <div class="date-column">2024 - Now</div>
+            <div class="content-column">
+                <h3 class="job-title">Artificial Intelligence Analyst</h3>
+                <div class="company">Layer7</div>
             </div>
-          </div>
-        );
-      })}
+        </div>
+
+        <div class="experience-item">
+            <div class="date-column">nov 22 - abr 23</div>
+            <div class="content-column">
+                <h3 class="job-title">Data Scientist Intership</h3>
+                <div class="company">Hospital Angeles</div>
+                <!-- <div class="description">
+                    I developed a new feature to display related products in Freshis blog posts. I also designed and launched an operational dashboard to manage delivery routes and customer orders in real-time, improving the Freshis delivery process.
+                </div> -->
+            </div>
+        </div>
+        
+        <div class="experience-item">
+            <div class="date-column">ago. 21 - oct. 21 </div>
+            <div class="content-column">
+                <h3 class="job-title">Research Stay - Machine Learning</h3>
+                <div class="company">BUAP -Benemérita Universidad Autónoma de Puebla</div>
+                <!-- <div class="description">
+                    I developed a new feature to display related products in Freshis blog posts. I also designed and launched an operational dashboard to manage delivery routes and customer orders in real-time, improving the Freshis delivery process.
+                </div> -->
+            </div>
+        </div>
+
+        <div class="experience-item">
+            <div class="date-column">jun. 21 - ago. 21</div>
+            <div class="content-column">
+                <h3 class="job-title">Summer Internship – Data Science</h3>
+                <div class="company">CIMAT - Centro de Investigación en Matemáticas, A.C.</div>
+            </div>
+        </div>
+  </section>
+
+
+  <section>
+    <h2 class="section-title">Stack</h2>
+    Python, SQL, C++, Javascript
+    Jupyter VSCode
+    Docker
+    Postgrest Mysql 
+    Fastapi
+    MLflow
+    Langgraph
+    Langchain
+    Git github bitbucket 
+    Numpy, pandas, Matplotlib, Seaborn,
+    Scikit-Learn 
+    Tensorflow Keras, Pytorch
+  </section>
+  
+<sections>
+    <h2 class="section-title">Course / Certifications</h2>
+
+  <div class="flex flex-col gap-4 ">
+
+    <div class="bg-[navajowhite] p-4">
+      <h3 class="text-ml font-semibold mb-2">Data Engineering Professional Certificate</h3>
+      <p class="text-gray-600 mb-2">DeepLearning.AI · Expedición: mar. 2025</p>
+      <p class="text-sm text-gray-500">ID: 1T31Y80LUUQV</p>
     </div>
 
+    <div class="bg-[navajowhite] p-4">
+      <h3 class="text-ml font-semibold mb-2">Introduction to LangGraph</h3>
+      <p class="text-gray-600 mb-2">LangChain · Expedición: mar. 2025</p>
+      <p class="text-sm text-gray-500">ID: kkg359aynw</p>
+    </div>
 
+    <div class="bg-[navajowhite] p-4">
+      <h3 class="text-ml font-semibold mb-2">Google Cloud Computing Foundations</h3>
+      <p class="text-gray-600">Google · Expedición: mar. 2024</p>
+    </div>
+
+    <div class="bg-[navajowhite] p-4">
+      <h3 class="text-ml font-semibold mb-2">Quantitative Analyst with R Track</h3>
+      <p class="text-gray-600">DataCamp · Expedición: jul. 2021</p>
+    </div>
+
+    <div class="bg-[navajowhite] p-4">
+      <h3 class="text-ml font-semibold mb-2">AZ-900: Microsoft Azure Fundamentals</h3>
+      <p class="text-gray-600 mb-2">Microsoft · Expedición: jun. 2021</p>
+      <p class="text-sm text-gray-500">ID: 90029376</p>
+    </div>
   </div>
 
-  <!-- Script para filtrar posts por folder -->
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      const postsContainer = document.getElementById('posts-container');
-      const allPosts = Array.from(postsContainer.getElementsByClassName('post'));
+</section>
 
-      function filterPosts(folder) {
-        // Actualiza la apariencia de los botones
-        document.querySelectorAll('.filter-btn').forEach(btn => {
-          btn.classList.remove('bg-[#00AC7B]', 'text-white');
-          btn.classList.add('bg-white', 'text-[#00AC7B]');
-        });
-        const activeBtn = document.querySelector(`.filter-btn[data-folder="${folder}"]`);
-        if (activeBtn) {
-          activeBtn.classList.remove('bg-white', 'text-[#00AC7B]');
-          activeBtn.classList.add('bg-[#00AC7B]', 'text-white');
+
+</Layout>
+
+<style>
+    body, html {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+        font-family: Arial, sans-serif;
+    }
+
+    #game-of-life-canvas {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+        opacity: 0.4;
+        filter: blur(0.5px);
+    }
+
+    .content {
+        position: relative;
+        z-index: 1;
+        color: #2D2D2D;
+        text-shadow: none;
+        padding: 30px;
+        max-width: 800px;
+        margin: 40px auto;
+        background-color: rgba(255, 255, 255, 0.9);
+        border-radius: 15px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        backdrop-filter: blur(10px);
+    }
+
+    h1 {
+        text-align: center;
+    }
+
+    .section-title {
+        font-size: 24px;
+        font-weight: 600;
+        margin-bottom: 20px;
+        color: #000000;
+    }
+
+    .experience-item {
+        display: flex;
+        gap: 40px;
+        margin-bottom: 20px;
+        padding-bottom: 20px;
+    }
+
+    .experience-item:last-child {
+        border-bottom: none;
+        margin-bottom: 0;
+    }
+
+    .date-column {
+        flex-shrink: 0;
+        width: 120px;
+        color: #000000;
+        font-size: 14px;
+        font-weight: 400;
+    }
+
+    .content-column {
+        flex: 1;
+    }
+
+    .job-title {
+        font-size: 20px;
+        font-weight: 600;
+        color: #000000;
+        margin-bottom: -5px;
+    }
+
+    .company {
+        color: #49b0f5;
+        font-size: 14px;
+    }
+
+    .description {
+        color: #000000;
+        font-size: 14px;
+        margin-bottom: 20px;
+        line-height: 1.6;
+    }
+
+    .responsibilities {
+        margin-bottom: 20px;
+    }
+
+    .responsibilities ul {
+        list-style: none;
+        padding: 0;
+    }
+
+    .responsibilities li {
+        color: #000000;
+        font-size: 14px;
+        margin-bottom: 8px;
+        padding-left: 16px;
+        position: relative;
+        line-height: 1.5;
+    }
+
+    .responsibilities li::before {
+        content: "•";
+        color: #f3962c;
+        position: absolute;
+        left: 0;
+    }
+
+    .tools {
+        color: #888888;
+        font-size: 13px;
+        font-style: italic;
+    }
+
+    .speaking-section {
+        margin-top: 80px;
+    }
+
+    .speaking-title {
+        font-size: 20px;
+        font-weight: 600;
+        margin-bottom: 30px;
+        color: #000000;
+    }
+
+    .speaking-item {
+        display: flex;
+        gap: 40px;
+        margin-bottom: 40px;
+    }
+
+    .speaking-date {
+        flex-shrink: 0;
+        width: 120px;
+        color: #000000;
+        font-size: 14px;
+    }
+</style>
+
+
+<style>
+   
+  * {
+    margin: 0px 0px 0px 0px;
+  }
+   
+  
+  /* Importante: Asegurar que las imágenes no se salgan */
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+
+    .date {
+      font-size: 0.85rem;
+      color: #777;
+      margin-bottom: 4px;
+      font-weight: 500;
+    }
+    
+    .title {
+      font-size: 1.1rem;
+      color: #222;
+      margin-bottom: 2px;
+      font-weight: 600;
+    }
+    
+    .company {
+      font-size: 0.95rem;
+      color: #444;
+      margin-bottom: 8px;
+      font-weight: 500;
+      font-style: italic;
+    }
+    
+    .description {
+      font-size: 0.9rem;
+      color: #555;
+      margin-bottom: 10px;
+      line-height: 1.5;
+    }
+    
+    .skills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    
+    .skill {
+      font-size: 0.75rem;
+      color: #666;
+      border-bottom: 1px solid #ddd;
+      padding-bottom: 2px;
+      transition: all 0.2s ease;
+    }
+    
+    .skill:hover {
+      color: #000000;
+      border-color: #999;
+    }
+
+      #game-of-life-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      opacity: 0.4;
+      filter: blur(0.5px);
+  }
+
+  .content {
+      position: relative;
+      z-index: 1;
+      color: #2D2D2D;
+      text-shadow: none;
+      padding: 30px;
+      max-width: 800px;
+      margin: 40px auto;
+      background-color: rgba(255, 255, 255, 0.9);
+      border-radius: 15px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+      backdrop-filter: blur(10px);
+  }
+
+</style>
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const canvas = document.getElementById('game-of-life-canvas');
+        const ctx = canvas.getContext('2d');
+        
+        // Configuración
+        let cellSize = 12; // Células ligeramente más grandes para el efecto de filtro
+        let running = true;
+        let speed = 800; // Más lento para ser menos distractor
+        
+        // Colores para células especiales (más sutiles para el efecto de filtro)
+        const specialColors = ['#8B93FF', '#40E0A4', '#FF8B8B']; // Versiones más suaves
+        
+        // Matriz para almacenar colores de células
+        let cellColors;
+        
+        // Ajustar el tamaño del canvas al tamaño de la ventana
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            
+            // Reiniciar el juego cuando se redimensiona
+            initGame();
         }
         
-        if (folder === "All") {
-          // Para "All", mostramos solo los 3 primeros posts del array global
-          allPosts.forEach(post => {
-            const idx = parseInt(post.getAttribute('data-index'));
-            post.style.display = idx < 3 ? "" : "none";
-          });
-        } else {
-          // Filtrar todos los posts que pertenezcan a la carpeta seleccionada
-          const filteredPosts = allPosts.filter(post => 
-            post.getAttribute('data-folder').toLowerCase() === folder
-          );
-          // Oculta todos primero
-          allPosts.forEach(post => (post.style.display = "none"));
-          // Muestra solo los 3 primeros de la categoría filtrada
-          filteredPosts.slice(0, 3).forEach(post => (post.style.display = ""));
+        // Inicializar el juego
+        let grid;
+        let columns;
+        let rows;
+        
+        function initGame() {
+            columns = Math.ceil(canvas.width / cellSize);
+            rows = Math.ceil(canvas.height / cellSize);
+            
+            // Crear matriz bidimensional para el grid (menos denso para efecto filtro)
+            grid = Array(columns).fill().map(() => Array(rows).fill().map(() => Math.random() > 0.85));
+            
+            // Inicializar matriz de colores (null = color por defecto)
+            cellColors = Array(columns).fill().map(() => Array(rows).fill(null));
+            
+            // Dibujar el estado inicial
+            draw();
         }
-      }
-
-      // Por defecto, muestra "All"
-      filterPosts("All");
-
-      // Asigna el evento click a cada botón
-      const filterButtons = document.querySelectorAll('.filter-btn');
-      filterButtons.forEach(btn => {
-        btn.addEventListener('click', () => {
-          const selectedFolder = btn.getAttribute('data-folder');
-          filterPosts(selectedFolder);
-        });
-      });
+        
+        // Actualizar el estado del juego
+        function update() {
+            // Crear una copia del grid actual
+            const next = Array(columns).fill().map(() => Array(rows).fill(false));
+            const nextColors = Array(columns).fill().map(() => Array(rows).fill(null));
+            
+            // Calcular el siguiente estado
+            for (let x = 0; x < columns; x++) {
+                for (let y = 0; y < rows; y++) {
+                    const state = grid[x][y];
+                    
+                    // Contar vecinos vivos
+                    let neighbors = 0;
+                    for (let i = -1; i <= 1; i++) {
+                        for (let j = -1; j <= 1; j++) {
+                            if (i === 0 && j === 0) continue;
+                            
+                            const xi = (x + i + columns) % columns;
+                            const yj = (y + j + rows) % rows;
+                            
+                            if (grid[xi][yj]) neighbors++;
+                        }
+                    }
+                    
+                    // Aplicar reglas del Juego de la Vida
+                    if (state && (neighbors < 2 || neighbors > 3)) {
+                        next[x][y] = false; // Muere por soledad o sobrepoblación
+                    } else if (!state && neighbors === 3) {
+                        next[x][y] = true; // Nace por reproducción
+                    } else {
+                        next[x][y] = state; // Mantiene su estado
+                        
+                        // Mantener el color si la célula sobrevive
+                        if (state) {
+                            nextColors[x][y] = cellColors[x][y];
+                        }
+                    }
+                    
+                    // Para células vivas, aplicar color aleatorio con baja probabilidad
+                    if (next[x][y] && Math.random() < 0.03) { // Reducido a 3% para ser más sutil
+                        // Hay un 8% de probabilidad de que la célula tenga un color especial
+                        if (Math.random() < 0.08) {
+                            const colorIndex = Math.floor(Math.random() * specialColors.length);
+                            nextColors[x][y] = specialColors[colorIndex];
+                        } else {
+                            nextColors[x][y] = null; // Volver al color por defecto
+                        }
+                    }
+                }
+            }
+            
+            // Actualizar el grid y los colores
+            grid = next;
+            cellColors = nextColors;
+        }
+        
+        // Dibujar el estado actual
+        function draw() {
+            // Fondo con el color especificado
+            ctx.fillStyle = '#f0eee6';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            // Dibujar células vivas con esquinas redondeadas
+            for (let x = 0; x < columns; x++) {
+                for (let y = 0; y < rows; y++) {
+                    if (grid[x][y]) {
+                        // Usar color especial si existe, de lo contrario usar el color por defecto
+                        ctx.fillStyle = cellColors[x][y] || '#D4D2C8';
+                        
+                        // Dibujar rectángulo redondeado
+                        const posX = x * cellSize;
+                        const posY = y * cellSize;
+                        const size = cellSize - 1;
+                        const radius = 2; // Radio de redondeo
+                        
+                        ctx.beginPath();
+                        ctx.roundRect(posX, posY, size, size, radius);
+                        ctx.fill();
+                    }
+                }
+            }
+        }
+        
+        // Bucle principal del juego
+        function gameLoop() {
+            if (running) {
+                update();
+                draw();
+            }
+            setTimeout(gameLoop, speed);
+        }
+        
+        // Evento de redimensionamiento
+        window.addEventListener('resize', resizeCanvas);
+        
+        // Inicializar
+        resizeCanvas();
+        gameLoop();
     });
-  </script>
-</Layout>
+</script>
