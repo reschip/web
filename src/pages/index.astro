@@ -9,7 +9,7 @@ import TechIconMobile from '../components/TechiconMobile.astro'
 <Layout title="Mi Portfolio">
   <canvas id="game-of-life-canvas"></canvas>
   <section class="flex flex-col justify-center min-h-screen gap-[12px] items-center ">
-    <img class="w-20 h-20 rounded-full border-4 border-white border-solid visible shadow-md" src="/profile.png" alt="">
+    <img class="w-20 h-20 rounded-full border-4 border-white border-solid visible shadow-md" src="/profile.webp" alt="">
     <h1 class=" font-extrabold text-center text-[20px] 
                 sm:text-[30px] sm:px-[25px] sm:py-[2px] sm:bg-[#f5e3c8] sm:rounded-md 
                 md:text-[30px] 
@@ -43,8 +43,8 @@ import TechIconMobile from '../components/TechiconMobile.astro'
     </a>
   </section>
 
-  <section id="about-section" class="mb-5 mt-[-50px]">
-    <h2 class="section-title">About</h2>
+  <section id="about-section" class="mb-5 mt-[-50px] sm:text-xl ">
+    <h2 class="section-title ">About</h2>
     <p>I was born in Mexico, in a developing city where the river whispers stories to the sun and oil sleeps beneath cacao trees that dream of rain.</p>
     <p>I traveled where the sea murmurs winds from the Isthmus and ships dance to the rhythm of the sandunga.</p>
     <p>I learned where domes touch the sky amid the scents of talavera and mole, and time walks through alleyways filled with history.</p>
@@ -52,36 +52,42 @@ import TechIconMobile from '../components/TechiconMobile.astro'
 
   <section class="bg-[#f9f8f596]">
     <h2 class="section-title">Work Experience</h2>
+    <div class="flex flex-col">
     <div class="experience-item">
-      <div class="date-column">2024 - Now</div>
+      <img class="w-20 rounded-sm hidden sm:block" src="https://media.licdn.com/dms/image/v2/D560BAQEDqTUcl8gG1Q/company-logo_200_200/company-logo_200_200/0/1710948466062/layer7_mx_logo?e=1755734400&v=beta&t=INUv6V1ZxXHg1pctaPMHIDSckfR7EOnt3ZteXMkPjFo" alt="">
       <div class="content-column">
+        <div class="date-column">2024 - Now</div>
         <h3 class="job-title">Artificial Intelligence Analyst</h3>
         <div class="company">Layer7</div>
       </div>
     </div>
 
     <div class="experience-item">
-      <div class="date-column">nov 22 - abr 23</div>
+      <img class="w-20 rounded-sm hidden sm:block" src="https://media.licdn.com/dms/image/v2/D560BAQFl9p5D15-UUw/company-logo_200_200/company-logo_200_200/0/1707328469029/hospital_angeles_puebla_logo?e=1755734400&v=beta&t=VKT543AawlqPECDRpyWrdL9CXy9_G7ZLBMDZzUxrI58" alt="">
       <div class="content-column">
+        <div class="date-column">nov 22 - abr 23</div>
         <h3 class="job-title">Data Scientist Intership</h3>
         <div class="company">Hospital Angeles</div>
       </div>
     </div>
     
     <div class="experience-item">
-      <div class="date-column">ago. 21 - oct. 21</div>
+      <img class="w-20 rounded-sm hidden sm:block" src="https://media.licdn.com/dms/image/v2/C4E0BAQHO777KsU9ETQ/company-logo_100_100/company-logo_100_100/0/1631365886285/buapoficial_logo?e=1755734400&v=beta&t=mNCxv3XqD3WUPbCkHwCCfO_te1kvokagSE-HU8PIqrg" alt="">
       <div class="content-column">
+        <div class="date-column">ago. 21 - oct. 21</div>
         <h3 class="job-title">Research Stay - Machine Learning</h3>
         <div class="company">BUAP - Benemérita Universidad Autónoma de Puebla</div>
       </div>
     </div>
 
     <div class="experience-item">
-      <div class="date-column">jun. 21 - ago. 21</div>
+      <img class="w-20 rounded-sm hidden sm:block" src="https://media.licdn.com/dms/image/v2/C4E0BAQFR30KuNQp3Jw/company-logo_100_100/company-logo_100_100/0/1663094485333/cimat_logo?e=1755734400&v=beta&t=pez2irLF6we4Bnk9ATUggaw3TJ6T1kxSXbF3Q_7nHYQ" alt="">
       <div class="content-column">
+        <div class="date-column">jun. 21 - ago. 21</div>
         <h3 class="job-title">Summer Internship – Data Science</h3>
         <div class="company">CIMAT - Centro de Investigación en Matemáticas, A.C.</div>
       </div>
+    </div>
     </div>
   </section>
 
@@ -406,9 +412,10 @@ import TechIconMobile from '../components/TechiconMobile.astro'
   /* === Sección de Experiencia === */
   .experience-item {
     display: flex;
-    gap: 40px;
+    gap: 20px;
     margin-bottom: 20px;
     padding-bottom: 20px;
+    align-items: center;
   }
 
   .experience-item:last-child {
