@@ -1,6 +1,9 @@
 ---
 // index.astro - Página principal del portfolio.
 import Layout from '../layouts/Layout.astro';
+import TechIcon from '../components/TechIcon.astro';
+import TechIconMobile from '../components/TechiconMobile.astro'
+
 ---
 
 <Layout title="Mi Portfolio">
@@ -83,8 +86,233 @@ import Layout from '../layouts/Layout.astro';
   </section>
 
   <section>
-    <h2 class="section-title">Stack</h2>
-    <p>Python, SQL, C++, Javascript, Jupyter, VSCode, Docker, Postgrest, Mysql, Fastapi, MLflow, Langgraph, Langchain, Git, Github, Bitbucket, Numpy, Pandas, Matplotlib, Seaborn, Scikit-Learn, Tensorflow, Keras, Pytorch.</p>
+    <h2 class="section-title ">Stack</h2>
+    <div class="sm:flex sm:flex-wrap justify-center gap-6 p-8 hidden sm:visible">
+    <TechIcon
+      iconSrc="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg"
+      iconName="Python"
+    />
+    <TechIcon 
+      iconSrc="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg"
+      iconName="Javascript"
+      class="mt-[-30px]"
+    />
+    <TechIcon
+      iconSrc="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/cplusplus/cplusplus-original.svg"
+      iconName="C++"
+    />
+    <TechIcon
+      iconSrc="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/postgresql/postgresql-original.svg"
+      iconName="Postgres"
+      class="mt-[-30px]" 
+    />
+    
+    <TechIcon
+      iconSrc="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mysql/mysql-original.svg"
+      iconName="Mysql"
+    />
+
+    {/* Herramientas y Entornos */}
+    <TechIcon
+      iconSrc="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/jupyter/jupyter-original.svg"
+      iconName="Jupyter"
+    />
+    <TechIcon
+      iconSrc="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vscode/vscode-original.svg"
+      iconName="VSCode"
+      class="mt-[-30px]"
+    />
+    <TechIcon
+      iconSrc="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/docker/docker-original.svg"
+      iconName="Docker"
+    />
+    <TechIcon
+      iconSrc="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg"
+      iconName="Git"
+      class="mt-[-30px]"
+    />
+    <TechIcon
+      iconSrc="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/github/github-original.svg"
+      iconName="Github"
+    />
+    <TechIcon
+      iconSrc="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/bitbucket/bitbucket-original.svg"
+      iconName="Bitbucket"
+    />
+
+
+    {/* Frameworks y Librerías de Python / ML */}
+    <TechIcon
+      iconSrc="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/fastapi/fastapi-original.svg"
+      iconName="Fastapi"
+      class="mt-[-30px]"
+    />
+    <TechIcon
+      iconSrc="https://images.chainguard.dev/logos/mlflow.svg"
+      iconName="MLflow"
+    /> 
+    <TechIcon
+      iconSrc="https://registry.npmmirror.com/@lobehub/icons-static-png/latest/files/dark/langgraph-color.png"
+      iconName="Langgraph"
+      class="mt-[-30px]"
+    />
+    <TechIcon
+      iconSrc="https://registry.npmmirror.com/@lobehub/icons-static-png/1.47.0/files/dark/langchain-color.png"
+      iconName="Langchain"
+    /> 
+    {/* Librerías de Data Science y ML */}
+    <TechIcon
+      iconSrc="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/numpy/numpy-original.svg"
+      iconName="Numpy"
+    />
+    <TechIcon
+      iconSrc="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/pandas/pandas-original.svg"
+      iconName="Pandas"
+      class="mt-[-30px]"
+    />
+    <TechIcon
+      iconSrc="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/matplotlib/matplotlib-original.svg"
+      iconName="Matplotlib"
+    />
+    <TechIcon
+      iconSrc='https://cdn.worldvectorlogo.com/logos/seaborn-1.svg'
+      iconName="Seaborn"
+      class="mt-[-30px]"
+    /> 
+    
+    <TechIcon
+      iconSrc="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/scikitlearn/scikitlearn-original.svg"
+      iconName="Scikit-Learn"
+    />
+    <TechIcon
+      iconSrc="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tensorflow/tensorflow-original.svg"
+      iconName="Tensorflow"
+      class="mt-[-30px]"
+    />
+    <TechIcon
+      iconSrc="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/keras/keras-original.svg"
+      iconName="Keras"
+    />
+    <TechIcon
+      iconSrc="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/pytorch/pytorch-original.svg"
+      iconName="Pytorch"
+      class="mt-[-30px]"
+    />
+    </div>
+
+    <div class="visible mt-5 flex flex-wrap items-center justify-center sm:hidden">
+      {/* Lenguajes de Programación */}
+      <TechIconMobile
+        iconSrc="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg"
+        iconName="Python"
+      />
+      <TechIconMobile
+        iconSrc="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg"
+        iconName="Javascript"
+        class="mt-[-30px]"
+      />
+      <TechIconMobile
+        iconSrc="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/cplusplus/cplusplus-original.svg"
+        iconName="C++"
+      />
+      <TechIconMobile
+        iconSrc="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/postgresql/postgresql-original.svg"
+        iconName="Postgres"
+        class="mt-[-30px]"
+      />
+
+      <TechIconMobile
+        iconSrc="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mysql/mysql-original.svg"
+        iconName="Mysql"
+      />
+
+      {/* Herramientas y Entornos */}
+      <TechIconMobile
+        iconSrc="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/jupyter/jupyter-original.svg"
+        iconName="Jupyter"
+      />
+      <TechIconMobile
+        iconSrc="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vscode/vscode-original.svg"
+        iconName="VSCode"
+        class="mt-[-30px]"
+      />
+      <TechIconMobile
+        iconSrc="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/docker/docker-original.svg"
+        iconName="Docker"
+      />
+      <TechIconMobile
+        iconSrc="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg"
+        iconName="Git"
+        class="mt-[-30px]"
+      />
+      <TechIconMobile
+        iconSrc="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/github/github-original.svg"
+        iconName="Github"
+      />
+      <TechIconMobile
+        iconSrc="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/bitbucket/bitbucket-original.svg"
+        iconName="Bitbucket"
+      />
+
+
+      {/* Frameworks y Librerías de Python / ML */}
+      <TechIconMobile
+        iconSrc="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/fastapi/fastapi-original.svg"
+        iconName="Fastapi"
+        class="mt-[-30px]"
+      />
+      <TechIconMobile
+        iconSrc="https://images.chainguard.dev/logos/mlflow.svg"
+        iconName="MLflow"
+      />
+      <TechIconMobile
+        iconSrc="https://registry.npmmirror.com/@lobehub/icons-static-png/latest/files/dark/langgraph-color.png"
+        iconName="Langgraph"
+        class="mt-[-30px]"
+      />
+      <TechIconMobile
+        iconSrc="https://registry.npmmirror.com/@lobehub/icons-static-png/1.47.0/files/dark/langchain-color.png"
+        iconName="Langchain"
+      />
+      {/* Librerías de Data Science y ML */}
+      <TechIconMobile
+        iconSrc="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/numpy/numpy-original.svg"
+        iconName="Numpy"
+      />
+      <TechIconMobile
+        iconSrc="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/pandas/pandas-original.svg"
+        iconName="Pandas"
+        class="mt-[-30px]"
+      />
+      <TechIconMobile
+        iconSrc="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/matplotlib/matplotlib-original.svg"
+        iconName="Matplotlib"
+      />
+      <TechIconMobile
+        iconSrc='https://cdn.worldvectorlogo.com/logos/seaborn-1.svg'
+        iconName="Seaborn"
+        class="mt-[-30px]"
+      />
+
+      <TechIconMobile
+        iconSrc="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/scikitlearn/scikitlearn-original.svg"
+        iconName="Scikit-Learn"
+      />
+      <TechIconMobile
+        iconSrc="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tensorflow/tensorflow-original.svg"
+        iconName="Tensorflow"
+        class="mt-[-30px]"
+      />
+      <TechIconMobile
+        iconSrc="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/keras/keras-original.svg"
+        iconName="Keras"
+      />
+      <TechIconMobile
+        iconSrc="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/pytorch/pytorch-original.svg"
+        iconName="Pytorch"
+        class="mt-[-30px]"
+      />
+</div>
   </section>
   
   <section>

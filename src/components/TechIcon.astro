@@ -1,0 +1,15 @@
+---
+// src/components/TechIcon.astro
+interface Props {
+  iconSrc: string; // URL del icono (ej. SVG de Devicon)
+  iconName: string; // Nombre de la tecnología (ej. "Python")
+  class?: string; 
+}
+
+const { iconSrc, iconName,class: className} = Astro.props;
+---
+
+<div class={`flex flex-col rounded-sm items-center w-30 ${className || ''}`}> 
+  <img class="w-13 h-13 mt-1.5" src={iconSrc} alt={iconName + " icon"} />
+  <p class="mb-1.5 mt-1.5 font-medium">{iconName}</p>
+</div>
