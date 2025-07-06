@@ -6,10 +6,13 @@ import TechIconMobile from '../components/TechiconMobile.astro'
 
 ---
 
-<Layout title="Mi Portfolio">
+<Layout 
+  title="Home"
+  description="Portfolio y blog de Andrés Cruz Chipol, un apasionado por la inteligencia artificial, la ciencia de datos y el desarrollo de software."
+>
   <canvas id="game-of-life-canvas"></canvas>
   <section class="flex flex-col justify-center min-h-screen gap-[12px] items-center lg:mt-[-20px] ">
-    <img class="w-20 h-20 rounded-full border-4 border-white border-solid visible shadow-md sm:w-40 " src="/profile.webp" alt="">
+    <img class="w-20 h-20 rounded-full border-4 border-white border-solid visible shadow-md sm:w-40 " src="/profile.webp" alt="Foto de perfil de Andrés Cruz Chipol">
     <h1 class=" font-extrabold text-center text-[20px] 
                 sm:text-[35px] sm:px-[25px] sm:py-[2px] 
                 md:text-[50px] 
@@ -30,7 +33,7 @@ import TechIconMobile from '../components/TechiconMobile.astro'
           <svg class="w-8 h-8 text-[#57bafb] sm:w-12 sm:h-12" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path d="M304.2 501.5L158.4 320.3 298.2 185c2.6-2.7 1.7-10.5-5.3-10.5h-69.2c-3.5 0-7 1.8-10.5 5.3L80.9 313.5V7.5q0-7.5-7.5-7.5H21.5Q14 0 14 7.5v497q0 7.5 7.5 7.5h51.9q7.5 0 7.5-7.5v-109l30.8-29.3 110.5 140.6c3 3.5 6.5 5.3 10.5 5.3h66.9q5.3 0 6-3z"/></svg>
         </a>
         <a href="https://huggingface.co/reschip" target="_blank" rel="noopener noreferrer">
-          <img class="w-8 h-8 sm:w-12 sm:h-12" src="hf-logo.svg" alt="Descripción de tu logo" class="w-24 h-24">
+          <img class="w-8 h-8 sm:w-12 sm:h-12" src="hf-logo.svg" alt="Logo de Hugging Face" class="w-24 h-24">
         </a>
     </div>
 
@@ -54,7 +57,7 @@ import TechIconMobile from '../components/TechiconMobile.astro'
     <h2 class="section-title">Work Experience</h2>
     <div class="flex flex-col">
     <div class="experience-item">
-      <img class="w-20 rounded-sm hidden sm:block" src="https://media.licdn.com/dms/image/v2/D560BAQEDqTUcl8gG1Q/company-logo_200_200/company-logo_200_200/0/1710948466062/layer7_mx_logo?e=1755734400&v=beta&t=INUv6V1ZxXHg1pctaPMHIDSckfR7EOnt3ZteXMkPjFo" alt="">
+      <img class="w-20 rounded-sm hidden sm:block" src="https://media.licdn.com/dms/image/v2/D560BAQEDqTUcl8gG1Q/company-logo_200_200/company-logo_200_200/0/1710948466062/layer7_mx_logo?e=1755734400&v=beta&t=INUv6V1ZxXHg1pctaPMHIDSckfR7EOnt3ZteXMkPjFo" alt="Logo de Layer7">
       <div class="content-column">
         <div class="date-column">2024 - Now</div>
         <h3 class="job-title">Artificial Intelligence Analyst</h3>
@@ -63,7 +66,7 @@ import TechIconMobile from '../components/TechiconMobile.astro'
     </div>
 
     <div class="experience-item">
-      <img class="w-20 rounded-sm hidden sm:block" src="https://media.licdn.com/dms/image/v2/D560BAQFl9p5D15-UUw/company-logo_200_200/company-logo_200_200/0/1707328469029/hospital_angeles_puebla_logo?e=1755734400&v=beta&t=VKT543AawlqPECDRpyWrdL9CXy9_G7ZLBMDZzUxrI58" alt="">
+      <img class="w-20 rounded-sm hidden sm:block" src="https://media.licdn.com/dms/image/v2/D560BAQFl9p5D15-UUw/company-logo_200_200/company-logo_200_200/0/1707328469029/hospital_angeles_puebla_logo?e=1755734400&v=beta&t=VKT543AawlqPECDRpyWrdL9CXy9_G7ZLBMDZzUxrI58" alt="Logo de Hospital Angeles">
       <div class="content-column">
         <div class="date-column">nov 22 - abr 23</div>
         <h3 class="job-title">Data Scientist Intership</h3>
@@ -72,7 +75,7 @@ import TechIconMobile from '../components/TechiconMobile.astro'
     </div>
     
     <div class="experience-item">
-      <img class="w-20 rounded-sm hidden sm:block" src="https://media.licdn.com/dms/image/v2/C4E0BAQHO777KsU9ETQ/company-logo_100_100/company-logo_100_100/0/1631365886285/buapoficial_logo?e=1755734400&v=beta&t=mNCxv3XqD3WUPbCkHwCCfO_te1kvokagSE-HU8PIqrg" alt="">
+      <img class="w-20 rounded-sm hidden sm:block" src="https://media.licdn.com/dms/image/v2/C4E0BAQHO777KsU9ETQ/company-logo_100_100/company-logo_100_100/0/1631365886285/buapoficial_logo?e=1755734400&v=beta&t=mNCxv3XqD3WUPbCkHwCCfO_te1kvokagSE-HU8PIqrg" alt="Logo de BUAP">
       <div class="content-column">
         <div class="date-column">ago. 21 - oct. 21</div>
         <h3 class="job-title">Research Stay - Machine Learning</h3>
@@ -81,7 +84,7 @@ import TechIconMobile from '../components/TechiconMobile.astro'
     </div>
 
     <div class="experience-item">
-      <img class="w-20 rounded-sm hidden sm:block" src="https://media.licdn.com/dms/image/v2/C4E0BAQFR30KuNQp3Jw/company-logo_100_100/company-logo_100_100/0/1663094485333/cimat_logo?e=1755734400&v=beta&t=pez2irLF6we4Bnk9ATUggaw3TJ6T1kxSXbF3Q_7nHYQ" alt="">
+      <img class="w-20 rounded-sm hidden sm:block" src="https://media.licdn.com/dms/image/v2/C4E0BAQFR30KuNQp3Jw/company-logo_100_100/company-logo_100_100/0/1663094485333/cimat_logo?e=1755734400&v=beta&t=pez2irLF6we4Bnk9ATUggaw3TJ6T1kxSXbF3Q_7nHYQ" alt="Logo de CIMAT">
       <div class="content-column">
         <div class="date-column">jun. 21 - ago. 21</div>
         <h3 class="job-title">Summer Internship – Data Science</h3>
