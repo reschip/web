@@ -9,7 +9,7 @@ export interface Props {
 
 const { 
 	title, 
-	description = "Site web de Andrés Cruz Chipol, apasionado por la inteligencia artificial, la ciencia de datos y el desarrollo de software.",
+	description = "Portfolio and blog of Andrés Cruz Chipol, passionate about artificial intelligence, data science, and software development.",
 	image = "/profile.webp"
 } = Astro.props;
 
@@ -18,7 +18,7 @@ const twitterHandle = "@reschip";
 ---
 
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -26,10 +26,10 @@ const twitterHandle = "@reschip";
   <!-- SEO Meta Tags -->
   <title>{`${title} | ${siteName}`}</title>
   <meta name="description" content={description} />
-  <meta name="keywords" content="Inteligencia Artificial, Ciencia de Datos, Machine Learning, Python, Blog, Portfolio, Andres Cruz Chipol" />
+  <meta name="keywords" content="Artificial Intelligence, Data Science, Machine Learning, Python, Blog, Portfolio, Andres Cruz Chipol" />
   <meta name="author" content="Andrés Cruz Chipol" />
 
-  <!-- Open Graph (para redes sociales como Facebook) -->
+  <!-- Open Graph (for social media like Facebook) -->
   <meta property="og:title" content={`${title} | ${siteName}`} />
   <meta property="og:description" content={description} />
   <meta property="og:image" content={new URL(image, Astro.url)} />

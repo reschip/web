@@ -1,5 +1,5 @@
 ---
-// index.astro - Página principal del portfolio.
+// index.astro - Main portfolio page.
 import Layout from '../layouts/Layout.astro';
 import TechIcon from '../components/TechIcon.astro';
 import TechIconMobile from '../components/TechiconMobile.astro'
@@ -8,7 +8,7 @@ import TechIconMobile from '../components/TechiconMobile.astro'
 
 <Layout 
   title="Home"
-  description="Portfolio y blog de Andrés Cruz Chipol, un apasionado por la inteligencia artificial, la ciencia de datos y el desarrollo de software."
+  description="Portfolio and blog of Andrés Cruz Chipol, passionate about artificial intelligence, data science, and software development."
 >
   <canvas id="game-of-life-canvas"></canvas>
   <section class="flex flex-col justify-center min-h-screen gap-[12px] items-center lg:mt-[-20px] ">
@@ -68,7 +68,7 @@ import TechIconMobile from '../components/TechiconMobile.astro'
     <div class="experience-item">
       <img class="w-20 rounded-sm hidden sm:block" src="https://media.licdn.com/dms/image/v2/D560BAQFl9p5D15-UUw/company-logo_200_200/company-logo_200_200/0/1707328469029/hospital_angeles_puebla_logo?e=1755734400&v=beta&t=VKT543AawlqPECDRpyWrdL9CXy9_G7ZLBMDZzUxrI58" alt="Logo de Hospital Angeles">
       <div class="content-column">
-        <div class="date-column">nov 22 - abr 23</div>
+        <div class="date-column">Nov 22 - Apr 23</div>
         <h3 class="job-title">Data Scientist Intership</h3>
         <div class="company">Hospital Angeles</div>
       </div>
@@ -77,7 +77,7 @@ import TechIconMobile from '../components/TechiconMobile.astro'
     <div class="experience-item">
       <img class="w-20 rounded-sm hidden sm:block" src="https://media.licdn.com/dms/image/v2/C4E0BAQHO777KsU9ETQ/company-logo_100_100/company-logo_100_100/0/1631365886285/buapoficial_logo?e=1755734400&v=beta&t=mNCxv3XqD3WUPbCkHwCCfO_te1kvokagSE-HU8PIqrg" alt="Logo de BUAP">
       <div class="content-column">
-        <div class="date-column">ago. 21 - oct. 21</div>
+        <div class="date-column">Aug 21 - Oct 21</div>
         <h3 class="job-title">Research Stay - Machine Learning</h3>
         <div class="company">BUAP - Benemérita Universidad Autónoma de Puebla</div>
       </div>
@@ -86,7 +86,7 @@ import TechIconMobile from '../components/TechiconMobile.astro'
     <div class="experience-item">
       <img class="w-20 rounded-sm hidden sm:block" src="https://media.licdn.com/dms/image/v2/C4E0BAQFR30KuNQp3Jw/company-logo_100_100/company-logo_100_100/0/1663094485333/cimat_logo?e=1755734400&v=beta&t=pez2irLF6we4Bnk9ATUggaw3TJ6T1kxSXbF3Q_7nHYQ" alt="Logo de CIMAT">
       <div class="content-column">
-        <div class="date-column">jun. 21 - ago. 21</div>
+        <div class="date-column">Jun 21 - Aug 21</div>
         <h3 class="job-title">Summer Internship – Data Science</h3>
         <div class="company">CIMAT - Centro de Investigación en Matemáticas, A.C.</div>
       </div>
@@ -325,36 +325,98 @@ import TechIconMobile from '../components/TechiconMobile.astro'
   </section>
   
   <section>
-    <h2 class="section-title">Course / Certifications</h2>
-    <div class="flex flex-col gap-4">
-      <div class="bg-[#f5e3c8] p-4 rounded-md">
-        <h3 class="text-ml font-semibold mb-2">Data Engineering Professional Certificate</h3>
-        <p class="text-gray-600 mb-2">DeepLearning.AI · Expedición: mar. 2025</p>
-        <p class="text-sm text-gray-500">ID: 1T31Y80LUUQV</p>
+  <h2 class="section-title text-2xl font-bold text-gray-800 mb-6">Course / Certifications</h2>
+  
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-3">
+      <div class="flex items-center gap-2 p-3 bg-[#f5e3c8] rounded transition-transform hover:-translate-y-0.5 min-h-[80px]">
+          <svg class="w-5 h-5 text-[#f3a734] flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"/>
+          </svg>
+          <div class="flex-1 min-w-0">
+              <h3 class="text-sm font-medium text-gray-800 mb-0.5 leading-tight">
+                  Data Engineering Professional Certificate
+              </h3>
+              <div class="flex items-center gap-1.5 text-xs text-gray-600">
+                  <span class="font-medium text-gray-700">DeepLearning.AI</span>
+                  <span class="text-gray-400">•</span>
+                  <span class="text-gray-500">Mar 2025</span>
+              </div>
+          </div>
+          <div class="text-xs text-[#D99530] font-mono bg-gray-50 px-1 py-0.5 rounded text-right whitespace-nowrap">
+              1T31Y80LUUQV
+          </div>
       </div>
-
-      <div class="bg-[#f5e3c8] p-4 rounded-md">
-        <h3 class="text-ml font-semibold mb-2">Introduction to LangGraph</h3>
-        <p class="text-gray-600 mb-2">LangChain · Expedición: mar. 2025</p>
-        <p class="text-sm text-gray-500">ID: kkg359aynw</p>
+      
+      <div class="flex items-center gap-2 p-3 bg-[#f5e3c8] rounded transition-transform hover:-translate-y-0.5 min-h-[80px]">
+          <svg class="w-5 h-5 text-[#f3a734] flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+          </svg>
+          <div class="flex-1 min-w-0">
+              <h3 class="text-sm font-medium text-gray-800 mb-0.5 leading-tight">
+                  Introduction to LangGraph
+              </h3>
+              <div class="flex items-center gap-1.5 text-xs text-gray-600">
+                  <span class="font-medium text-gray-700">LangChain</span>
+                  <span class="text-gray-400">•</span>
+                  <span class="text-gray-500">Mar 2025</span>
+              </div>
+          </div>
+          <div class="text-xs text-[#D99530] font-mono bg-gray-50 px-1 py-0.5 rounded text-right whitespace-nowrap">
+              kkg359aynw
+          </div>
       </div>
-
-      <div class="bg-[#f5e3c8] p-4 rounded-md">
-        <h3 class="text-ml font-semibold mb-2">Google Cloud Computing Foundations</h3>
-        <p class="text-gray-600">Google · Expedición: mar. 2024</p>
+      
+      <div class="flex items-center gap-2 p-3 bg-[#f5e3c8] rounded transition-transform hover:-translate-y-0.5 min-h-[80px]">
+          <svg class="w-5 h-5 text-[#f3a734] flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z"/>
+          </svg>
+          <div class="flex-1 min-w-0">
+              <h3 class="text-sm font-medium text-gray-800 mb-0.5 leading-tight">
+                  Google Cloud Computing Foundations
+              </h3>
+              <div class="flex items-center gap-1.5 text-xs text-gray-600">
+                  <span class="font-medium text-gray-700">Google</span>
+                  <span class="text-gray-400">•</span>
+                  <span class="text-gray-500">Mar 2024</span>
+              </div>
+          </div>
       </div>
-
-      <div class="bg-[#f5e3c8] p-4 rounded-md" >
-        <h3 class="text-ml font-semibold mb-2">Quantitative Analyst with R Track</h3>
-        <p class="text-gray-600">DataCamp · Expedición: jul. 2021</p>
+      
+      <div class="flex items-center gap-2 p-3 bg-[#f5e3c8] rounded transition-transform hover:-translate-y-0.5 min-h-[80px]">
+          <svg class="w-5 h-5 text-[#f3a734] flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+          </svg>
+          <div class="flex-1 min-w-0">
+              <h3 class="text-sm font-medium text-gray-800 mb-0.5 leading-tight">
+                  Quantitative Analyst with R Track
+              </h3>
+              <div class="flex items-center gap-1.5 text-xs text-gray-600">
+                  <span class="font-medium text-gray-700">DataCamp</span>
+                  <span class="text-gray-400">•</span>
+                  <span class="text-gray-500">Jul 2021</span>
+              </div>
+          </div>
       </div>
-
-      <div class="bg-[#f5e3c8] p-4 rounded-md">
-        <h3 class="text-ml font-semibold mb-2">AZ-900: Microsoft Azure Fundamentals</h3>
-        <p class="text-gray-600 mb-2">Microsoft · Expedición: jun. 2021</p>
-        <p class="text-sm text-gray-500">ID: 90029376</p>
+      
+      <div class="flex items-center gap-2 p-3 bg-[#f5e3c8] rounded transition-transform hover:-translate-y-0.5 min-h-[80px]">
+          <svg class="w-5 h-5 text-[#f3a734] flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01"/>
+          </svg>
+          <div class="flex-1 min-w-0">
+              <h3 class="text-sm font-medium text-gray-800 mb-0.5 leading-tight">
+                  AZ-900: Microsoft Azure Fundamentals
+              </h3>
+              <div class="flex items-center gap-1.5 text-xs text-gray-600">
+                  <span class="font-medium text-gray-700">Microsoft</span>
+                  <span class="text-gray-400">•</span>
+                  <span class="text-gray-500">Jun 2021</span>
+              </div>
+          </div>
+          <div class="text-xs text-[#D99530] font-mono bg-gray-50 px-1 py-0.5 rounded text-right whitespace-nowrap">
+              90029376
+          </div>
       </div>
-    </div>
+  </div>
   </section>
 </Layout>
 
