@@ -1,0 +1,44 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout
+  title="Side Projects"
+  description="Explore side projects by Andrés Cruz Chipol, including in-progress apps and creative experiments."
+>
+  <section class="min-h-screen py-16 flex flex-col gap-12">
+    <header class="space-y-3 text-center">
+      <h1 class="text-4xl font-extrabold text-[#5bc0be]">Side Projects</h1>
+      <p class="text-lg text-gray-700">
+        A collection of ideas in progress. This is where I document prototypes, tools, and personal
+        apps that help me explore new technologies.
+      </p>
+      <p class="text-base text-gray-600">
+        Each project here is either an MVP undergoing validation or a product on its path to a
+        production-ready release.
+      </p>
+    </header>
+
+    <article class="rounded-xl border border-gray-200 bg-white/80 shadow-sm backdrop-blur p-6 flex flex-col gap-4">
+      <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+        <div>
+          <h2 class="text-2xl font-semibold text-[#0f1a20]">Snake minimalist Game</h2>
+          <p class="text-gray-600">Minimalist mobile game currently in development for Google Play Store.</p>
+        </div>
+        <a
+          href="/sideprojects/snake-minimalist-game"
+          class="inline-flex items-center gap-2 rounded-full bg-[#5bc0be] px-4 py-2 text-white font-medium transition hover:bg-[#48a9a7]"
+        >
+          View details
+          <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+        </a>
+      </div>
+
+      <ul class="list-disc pl-6 text-sm text-gray-600">
+        <li>Modular architecture focused on maintainability and scalability.</li>
+        <li>Minimal interface with optimized touch controls.</li>
+      </ul>
+    </article>
+  </section>
+</Layout>
+

@@ -1,0 +1,66 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+---
+
+<Layout
+  title="Snake minimalist Game"
+  description="Development details of the Snake minimalist Game mobile app for Google Play Store."
+>
+  <article class="min-h-screen py-16 space-y-10">
+    <header class="space-y-4">
+      <h1 class="text-4xl font-extrabold text-[#5bc0be]">Snake minimalist Game</h1>
+      <p class="text-lg text-gray-700">
+        Personal mobile game project inspired by the classic Snake, designed with a minimalist
+        aesthetic and accessible mechanics for quick sessions.
+      </p>
+    </header>
+
+    <section class="space-y-3">
+      <h2 class="text-2xl font-semibold text-[#0f1a20]">Project goal</h2>
+      <p class="text-gray-700">
+        Build a clean, responsive experience with intuitive touch controls, soft visual effects, and
+        support for multiple screen sizes on Android.
+      </p>
+    </section>
+
+    <section class="space-y-3">
+      <h2 class="text-2xl font-semibold text-[#0f1a20]">Features in progress</h2>
+      <ul class="list-disc pl-6 text-gray-700 space-y-2">
+        <li>Minimal gameplay loop featuring a golden apple power-up that provides a temporary boost.</li>
+        <li>Single in-memory score save to validate the flow before persistent storage.</li>
+        <li>Minimalist interface focused on clarity and fast iterations.</li>
+      </ul>
+    </section>
+
+    <section class="space-y-3">
+      <h2 class="text-2xl font-semibold text-[#0f1a20]">Tech stack</h2>
+      <p class="text-gray-700">
+        Built entirely with Flutter to keep the experience consistent across Android devices. No
+        external repositories or documentation are available yet; all experiments live in a private
+        local workspace.
+      </p>
+    </section>
+
+    <section class="space-y-4">
+      <h2 class="text-2xl font-semibold text-[#0f1a20]">Documentation</h2>
+      <p class="text-gray-700">
+        Review the terms and privacy materials prepared for the Google Play Store submission.
+      </p>
+      <a
+        href="/sideprojects/snake-minimalist-game/terms-and-conditions"
+        class="inline-flex items-center gap-2 rounded-full bg-[#f42c04] px-4 py-2 text-white font-medium transition hover:bg-[#d93d0b]"
+      >
+        Terms and conditions
+        <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      </a>
+      <a
+        href="/sideprojects/snake-minimalist-game/privacy-policy"
+        class="inline-flex items-center gap-2 rounded-full bg-[#5bc0be] px-4 py-2 text-white font-medium transition hover:bg-[#48a9a7]"
+      >
+        Privacy policy
+        <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      </a>
+    </section>
+  </article>
+</Layout>
+

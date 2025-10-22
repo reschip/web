@@ -51,6 +51,7 @@ const twitterHandle = "@reschip";
   <link href="https://fonts.googleapis.com/css2?family=Aleo:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 </head>
 <body>
+  <canvas id="game-of-life-canvas"></canvas>
   <div class="wrapper">
     <main class="container">
       <slot />
@@ -68,12 +69,34 @@ const twitterHandle = "@reschip";
   * {
     box-sizing: border-box;
   }
-  
+
+  html,
   body {
     margin: 0;
     padding: 0;
+    width: 100%;
+    height: 100%;
+    font-family: Arial, sans-serif;
+    color: #0f1a20;
+    scroll-behavior: smooth;
   }
-  
+
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  #game-of-life-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    opacity: 0.4;
+    filter: blur(0.5px);
+  }
+
   .wrapper {
     width: 100%;
     padding: 0 1rem; /* Espaciado en móviles */
@@ -98,3 +121,118 @@ const twitterHandle = "@reschip";
     }
   }
 </style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const canvas = document.getElementById('game-of-life-canvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+
+    let cellSize = 12;
+    let speed = 800;
+    const specialColors = ['#8B93FF', '#40E0A4', '#FF8B8B'];
+
+    let grid;
+    let cellColors;
+    let columns;
+    let rows;
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      initGame();
+    }
+
+    function initGame() {
+      columns = Math.ceil(canvas.width / cellSize);
+      rows = Math.ceil(canvas.height / cellSize);
+
+      grid = Array(columns)
+        .fill(null)
+        .map(() =>
+          Array(rows)
+            .fill(null)
+            .map(() => Math.random() > 0.85)
+        );
+      cellColors = Array(columns)
+        .fill(null)
+        .map(() => Array(rows).fill(null));
+
+      draw();
+    }
+
+    function update() {
+      const nextGrid = Array(columns)
+        .fill(null)
+        .map(() => Array(rows).fill(false));
+      const nextColors = Array(columns)
+        .fill(null)
+        .map(() => Array(rows).fill(null));
+
+      for (let x = 0; x < columns; x++) {
+        for (let y = 0; y < rows; y++) {
+          const state = grid[x][y];
+          let neighbors = 0;
+
+          for (let i = -1; i <= 1; i++) {
+            for (let j = -1; j <= 1; j++) {
+              if (i === 0 && j === 0) continue;
+              const xi = (x + i + columns) % columns;
+              const yj = (y + j + rows) % rows;
+              if (grid[xi][yj]) neighbors++;
+            }
+          }
+
+          if (state && (neighbors < 2 || neighbors > 3)) {
+            nextGrid[x][y] = false;
+          } else if (!state && neighbors === 3) {
+            nextGrid[x][y] = true;
+          } else {
+            nextGrid[x][y] = state;
+            if (state) {
+              nextColors[x][y] = cellColors[x][y];
+            }
+          }
+
+          if (nextGrid[x][y] && Math.random() < 0.03) {
+            if (Math.random() < 0.08) {
+              const colorIndex = Math.floor(Math.random() * specialColors.length);
+              nextColors[x][y] = specialColors[colorIndex];
+            } else {
+              nextColors[x][y] = null;
+            }
+          }
+        }
+      }
+
+      grid = nextGrid;
+      cellColors = nextColors;
+    }
+
+    function draw() {
+      ctx.fillStyle = '#f0eee6';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      for (let x = 0; x < columns; x++) {
+        for (let y = 0; y < rows; y++) {
+          if (grid[x][y]) {
+            ctx.fillStyle = cellColors[x][y] || '#D4D2C8';
+            ctx.beginPath();
+            ctx.roundRect(x * cellSize, y * cellSize, cellSize - 1, cellSize - 1, 2);
+            ctx.fill();
+          }
+        }
+      }
+    }
+
+    function gameLoop() {
+      update();
+      draw();
+      setTimeout(gameLoop, speed);
+    }
+
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+    gameLoop();
+  });
+</script>
