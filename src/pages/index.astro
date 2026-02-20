@@ -78,57 +78,96 @@ import TechIconMobile from '../components/TechiconMobile.astro'
       </div>
     </section>
 
-    <!-- WORK EXPERIENCE -->
-    <section class="section reveal">
+    <!-- WORK EXPERIENCE — CI pipeline style -->
+    <section class="section section--pipeline reveal">
       <h2 class="section-kicker">Work Experience</h2>
-      <div class="xp-list">
 
-        <div class="xp-item" data-hover>
-          <div class="xp-meta">
-            <span class="xp-date">Aug 2024 – Aug 2025</span>
-            <img class="xp-logo" src="layer7_mx_logo.jpeg" alt="Layer7">
+      <!-- Pipeline header -->
+      <div class="pipeline-header" aria-hidden="true">
+        <span class="ph-label">job</span>
+        <span class="ph-label ph-label--role">role</span>
+        <span class="ph-label ph-label--dur">duration</span>
+        <span class="ph-label ph-label--status">status</span>
+      </div>
+
+      <div class="pipeline-list">
+
+        <!-- 12 months = longest = 100% -->
+        <div class="pipe-job" data-hover>
+          <div class="pipe-left">
+            <span class="pipe-status pipe-status--pass" title="Completed">✓</span>
+            <img class="pipe-logo" src="layer7_mx_logo.jpeg" alt="Layer7">
           </div>
-          <div class="xp-body">
-            <h3 class="xp-role">Artificial Intelligence Analyst</h3>
-            <span class="xp-company">Layer7</span>
+          <div class="pipe-body">
+            <h3 class="pipe-role">Artificial Intelligence Analyst</h3>
+            <span class="pipe-company">Layer7</span>
+          </div>
+          <div class="pipe-right">
+            <div class="pipe-bar-wrap">
+              <div class="pipe-bar" style="--fill:100%"></div>
+            </div>
+            <span class="pipe-range">Aug 2024 – Aug 2025 · 12 mo</span>
           </div>
         </div>
 
-        <div class="xp-item" data-hover>
-          <div class="xp-meta">
-            <span class="xp-date">Nov 2022 – Apr 2023</span>
-            <img class="xp-logo" src="9b31d507dd2bb615fb4a9a066087caac.jpeg" alt="Hospital Ángeles">
+        <!-- 5 months = 42% -->
+        <div class="pipe-job" data-hover>
+          <div class="pipe-left">
+            <span class="pipe-status pipe-status--pass" title="Completed">✓</span>
+            <img class="pipe-logo" src="9b31d507dd2bb615fb4a9a066087caac.jpeg" alt="Hospital Ángeles">
           </div>
-          <div class="xp-body">
-            <h3 class="xp-role">Data Scientist Internship</h3>
-            <span class="xp-company">Hospital Ángeles</span>
+          <div class="pipe-body">
+            <h3 class="pipe-role">Data Scientist Internship</h3>
+            <span class="pipe-company">Hospital Ángeles</span>
           </div>
-        </div>
-
-        <div class="xp-item" data-hover>
-          <div class="xp-meta">
-            <span class="xp-date">Aug 2021 – Oct 2021</span>
-            <img class="xp-logo" src="imagen_base_slider.png" alt="BUAP">
-          </div>
-          <div class="xp-body">
-            <h3 class="xp-role">Research Stay — Machine Learning</h3>
-            <span class="xp-company">BUAP · Benemérita Universidad Autónoma de Puebla</span>
+          <div class="pipe-right">
+            <div class="pipe-bar-wrap">
+              <div class="pipe-bar" style="--fill:42%"></div>
+            </div>
+            <span class="pipe-range">Nov 2022 – Apr 2023 · 5 mo</span>
           </div>
         </div>
 
-        <div class="xp-item" data-hover>
-          <div class="xp-meta">
-            <span class="xp-date">Jun 2021 – Aug 2021</span>
-            <img class="xp-logo" src="q-CnogwU_400x400.jpg" alt="CIMAT">
+        <!-- 2 months = 17% -->
+        <div class="pipe-job" data-hover>
+          <div class="pipe-left">
+            <span class="pipe-status pipe-status--pass" title="Completed">✓</span>
+            <img class="pipe-logo" src="imagen_base_slider.png" alt="BUAP">
           </div>
-          <div class="xp-body">
-            <h3 class="xp-role">Summer Internship — Data Science</h3>
-            <span class="xp-company">CIMAT · Centro de Investigación en Matemáticas, A.C.</span>
+          <div class="pipe-body">
+            <h3 class="pipe-role">Research Stay — Machine Learning</h3>
+            <span class="pipe-company">BUAP · Benemérita Universidad Autónoma de Puebla</span>
+          </div>
+          <div class="pipe-right">
+            <div class="pipe-bar-wrap">
+              <div class="pipe-bar" style="--fill:17%"></div>
+            </div>
+            <span class="pipe-range">Aug 2021 – Oct 2021 · 2 mo</span>
+          </div>
+        </div>
+
+        <!-- 2 months = 17% -->
+        <div class="pipe-job" data-hover>
+          <div class="pipe-left">
+            <span class="pipe-status pipe-status--pass" title="Completed">✓</span>
+            <img class="pipe-logo" src="q-CnogwU_400x400.jpg" alt="CIMAT">
+          </div>
+          <div class="pipe-body">
+            <h3 class="pipe-role">Summer Internship — Data Science</h3>
+            <span class="pipe-company">CIMAT · Centro de Investigación en Matemáticas, A.C.</span>
+          </div>
+          <div class="pipe-right">
+            <div class="pipe-bar-wrap">
+              <div class="pipe-bar" style="--fill:17%"></div>
+            </div>
+            <span class="pipe-range">Jun 2021 – Aug 2021 · 2 mo</span>
           </div>
         </div>
 
       </div>
     </section>
+
+
 
     <!-- TECH STACK — infinite marquee ticker -->
     <section class="section section--stack reveal">
@@ -528,77 +567,163 @@ import TechIconMobile from '../components/TechiconMobile.astro'
   .about-body p:last-child { margin-bottom: 0; }
 
   /* ═══════════════════════════════════════════════════
-     WORK EXPERIENCE
+     WORK EXPERIENCE — CI PIPELINE
   ═══════════════════════════════════════════════════ */
-  .xp-list { display: flex; flex-direction: column; }
+  .section--pipeline { }
 
-  .xp-item {
+  /* Column header */
+  .pipeline-header {
+    display: grid;
+    grid-template-columns: 80px 1fr 200px 60px;
+    gap: 1rem;
+    padding: .4rem 1rem;
+    background: var(--cream-2);
+    border: 1px solid var(--rule);
+    border-radius: 6px;
+    margin-bottom: .5rem;
+  }
+
+  .ph-label {
+    font-size: .6rem;
+    font-weight: 700;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--dust);
+  }
+
+  .ph-label--role   { }
+  .ph-label--dur    { text-align: right; }
+  .ph-label--status { text-align: center; }
+
+  /* Job list */
+  .pipeline-list { display: flex; flex-direction: column; gap: .4rem; }
+
+  .pipe-job {
+    display: grid;
+    grid-template-columns: 80px 1fr 200px;
+    gap: 1rem;
+    align-items: center;
+    padding: .85rem 1rem;
+    border: 1px solid var(--rule);
+    border-radius: 8px;
+    background: #fff;
+    cursor: default;
+    transition: border-color .2s, box-shadow .2s, background .2s;
+  }
+
+  .pipe-job:hover {
+    border-color: var(--sage-lt);
+    background: #f5fbf8;
+    box-shadow: 0 2px 12px rgba(95,158,132,.08);
+  }
+
+  .pipe-job:hover .pipe-role { color: var(--sage); }
+  .pipe-job:hover .pipe-bar  { opacity: 1; }
+
+  /* Left: status + logo */
+  .pipe-left {
     display: flex;
     align-items: center;
-    gap: 1.5rem;
-    padding: 1.4rem 0;
-    border-top: 1px solid var(--rule);
-    cursor: default;
-    transition: padding-left .25s cubic-bezier(.25,.46,.45,.94);
-  }
-
-  .xp-item:last-child { border-bottom: 1px solid var(--rule); }
-
-  .xp-item:hover {
-    padding-left: .5rem;
-  }
-
-  .xp-item:hover .xp-role { color: var(--sage); }
-
-  .xp-meta {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: .5rem;
+    gap: .6rem;
     flex-shrink: 0;
-    width: 130px;
   }
 
-  .xp-date {
-    font-size: .68rem;
-    color: var(--peach);
-    font-weight: 600;
-    letter-spacing: .03em;
-    white-space: nowrap;
-    font-variant-numeric: tabular-nums;
+  .pipe-status {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    font-size: .65rem;
+    font-weight: 700;
+    flex-shrink: 0;
   }
 
-  .xp-logo {
-    width: 36px;
-    height: 36px;
-    border-radius: 6px;
+  .pipe-status--pass {
+    background: #dcf5eb;
+    color: var(--sage);
+    border: 1px solid #b8e8d2;
+  }
+
+  .pipe-logo {
+    width: 30px;
+    height: 30px;
+    border-radius: 5px;
     object-fit: contain;
-    opacity: .75;
     border: 1px solid var(--rule);
     background: #fff;
     padding: 2px;
-    transition: opacity .2s;
   }
 
-  .xp-item:hover .xp-logo { opacity: 1; }
+  /* Body: role + company */
+  .pipe-body { min-width: 0; }
 
-  .xp-body { flex: 1; }
-
-  .xp-role {
+  .pipe-role {
     font-family: 'Outfit', sans-serif;
-    font-size: 1.05rem;
+    font-size: .95rem;
     font-weight: 700;
     color: var(--ink);
-    margin-bottom: .2rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
     transition: color .2s;
     line-height: 1.3;
+    margin-bottom: .15rem;
   }
 
-  .xp-company {
-    font-size: .78rem;
+  .pipe-company {
+    font-size: .72rem;
     color: var(--sky);
     font-weight: 500;
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
+
+  /* Right: bar + range */
+  .pipe-right {
+    display: flex;
+    flex-direction: column;
+    gap: .35rem;
+    align-items: flex-end;
+  }
+
+  .pipe-bar-wrap {
+    width: 100%;
+    height: 5px;
+    background: var(--cream-2);
+    border-radius: 99px;
+    overflow: hidden;
+  }
+
+  .pipe-bar {
+    height: 100%;
+    width: var(--fill);
+    background: var(--sage);
+    border-radius: 99px;
+    opacity: .75;
+    transition: opacity .2s;
+    /* animate filling in on load */
+    animation: bar-grow .9s cubic-bezier(.25,.46,.45,.94) both;
+    animation-delay: .3s;
+  }
+
+  @keyframes bar-grow {
+    from { width: 0; }
+    to   { width: var(--fill); }
+  }
+
+  .pipe-range {
+    font-size: .62rem;
+    color: var(--dust);
+    letter-spacing: .03em;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+
+
 
   /* ═══════════════════════════════════════════════════
      SIDE PROJECTS
