@@ -2,15 +2,15 @@
 import "../styles/global.css";
 
 export interface Props {
-	title: string;
-	description?: string;
-	image?: string;
+  title: string;
+  description?: string;
+  image?: string;
 }
 
-const { 
-	title, 
-	description = "Portfolio and blog of Andrés Cruz Chipol, passionate about artificial intelligence, data science, and software development.",
-	image = "/profile.webp"
+const {
+  title,
+  description = "Portfolio and blog of Andrés Cruz Chipol, passionate about artificial intelligence, data science, and software development.",
+  image = "/profile.webp"
 } = Astro.props;
 
 const siteName = "Andrés Cruz Chipol";
@@ -22,217 +22,398 @@ const twitterHandle = "@reschip";
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
-  <!-- SEO Meta Tags -->
   <title>{`${title} | ${siteName}`}</title>
   <meta name="description" content={description} />
-  <meta name="keywords" content="Artificial Intelligence, Data Science, Machine Learning, Python, Blog, Portfolio, Andres Cruz Chipol" />
+  <meta name="keywords" content="Artificial Intelligence, Data Science, Machine Learning, Python, Portfolio, Andres Cruz Chipol" />
   <meta name="author" content="Andrés Cruz Chipol" />
-
-  <!-- Open Graph (for social media like Facebook) -->
   <meta property="og:title" content={`${title} | ${siteName}`} />
   <meta property="og:description" content={description} />
   <meta property="og:image" content={new URL(image, Astro.url)} />
   <meta property="og:url" content={Astro.url} />
   <meta property="og:site_name" content={siteName} />
   <meta property="og:type" content="website" />
-
-  <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:site" content={twitterHandle} />
   <meta name="twitter:creator" content={twitterHandle} />
   <meta name="twitter:title" content={`${title} | ${siteName}`} />
   <meta name="twitter:description" content={description} />
   <meta name="twitter:image" content={new URL(image, Astro.url)} />
-
   <link rel="icon" type="image/webp" href="/profile.webp" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Aleo:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;1,300&family=Outfit:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
 </head>
 <body>
-  <canvas id="game-of-life-canvas"></canvas>
-  <div class="wrapper">
-    <main class="container">
-      <slot />
-    </main>
+  <div id="cursor-dot"></div>
+  <div id="cursor-ring"></div>
+
+  <!-- The 3D canvas lives here — occupies the right half on hero, then becomes a subtle fixed bg -->
+  <canvas id="mesh-canvas"></canvas>
+
+  <!-- Page scroll wrapper -->
+  <div class="page-wrapper">
+    <slot />
   </div>
-  <footer class="bg-[#f42c04] mt-14 h-14 flex flex-col justify-center items-center font-extralight">
-    <a href="https://www.andreschipol.com" class="no-underline text-white" >
-      www.andreschipol.com
-    </a>
+
+  <footer>
+    <span class="footer-line"></span>
+    <a href="https://www.andreschipol.com" class="footer-link">andreschipol.com</a>
+    <span class="footer-line"></span>
   </footer>
 </body>
 </html>
 
-<style>
-  * {
-    box-sizing: border-box;
+<style is:global>
+  /* ─── Design Tokens ─────────────────────────────── */
+  :root {
+    --cream:        #FAF8F5;   /* page background */
+    --cream-2:      #F2EDE8;   /* alt sections */
+    --sage:         #5F9E84;   /* primary accent */
+    --sage-light:   #A8CBBF;   /* light sage */
+    --rose:         #C4686E;   /* secondary accent */
+    --sky:          #5A8FAD;   /* tertiary accent */
+    --mauve:        #7E6B9C;   /* quaternary */
+    --peach:        #C4855A;   /* warm accent */
+    --ink:          #1A1714;   /* primary text */
+    --ink-2:        #4A433D;   /* secondary text */
+    --dust:         #9A9089;   /* muted text */
+    --rule:         #DDD5CC;   /* dividers */
+    --panel:        rgba(250,248,245,0.94); /* content panel bg */
   }
 
-  html,
-  body {
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    height: 100%;
-    font-family: Arial, sans-serif;
-    color: #0f1a20;
+  /* ─── Reset ──────────────────────────────────────── */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html {
+    font-size: 16px;
     scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
   }
 
-  img {
-    max-width: 100%;
-    height: auto;
+  body {
+    background: var(--cream);
+    color: var(--ink);
+    font-family: 'Inter', sans-serif;
+    overflow-x: hidden;
+    min-height: 100vh;
   }
 
-  #game-of-life-canvas {
+  img { max-width: 100%; height: auto; display: block; }
+  a   { color: inherit; }
+
+  /* ─── Custom cursor ──────────────────────────────── */
+  #cursor-dot {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -1;
-    opacity: 0.4;
-    filter: blur(0.5px);
+    width: 5px; height: 5px;
+    background: var(--sage);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%,-50%);
+    mix-blend-mode: multiply;
+    transition: opacity .2s;
+  }
+  #cursor-ring {
+    position: fixed;
+    width: 26px; height: 26px;
+    border: 1.5px solid var(--sage);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9998;
+    transform: translate(-50%,-50%);
+    opacity: .4;
+    transition:
+      left .09s cubic-bezier(.25,.46,.45,.94),
+      top  .09s cubic-bezier(.25,.46,.45,.94),
+      width .25s ease, height .25s ease,
+      border-color .25s ease, opacity .25s ease;
+  }
+  #cursor-ring.hovered {
+    width: 42px; height: 42px;
+    border-color: var(--rose);
+    opacity: .7;
   }
 
-  .wrapper {
-    width: 100%;
-    padding: 0 1rem; /* Espaciado en móviles */
-  }
-  
-  .container {
-    max-width: 800px; /* Ancho máximo del contenedor */
-    margin: 0 auto; /* Centrado horizontal */
-    padding: 2rem 0;
-    width: 100%;
-    overflow-x: hidden; /* Evita que el contenido se salga horizontalmente */
-    font-family:Aleo;
+  /* ─── 3D Canvas ──────────────────────────────────── */
+  #mesh-canvas {
+    position: fixed;
+    top: 0; right: 0;
+    width: 55%;
+    height: 100vh;
+    z-index: 0;
+    pointer-events: none;
   }
 
+  /* ─── Page wrapper ───────────────────────────────── */
+  .page-wrapper {
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ─── Footer ─────────────────────────────────────── */
+  footer {
+    position: relative;
+    z-index: 2;
+    background: var(--cream);
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 1.75rem 2.5rem;
+    border-top: 1px solid var(--rule);
+  }
+  .footer-line {
+    flex: 1;
+    height: 1px;
+    background: var(--rule);
+  }
+  .footer-link {
+    font-size: .72rem;
+    letter-spacing: .14em;
+    text-transform: lowercase;
+    color: var(--dust);
+    text-decoration: none;
+    white-space: nowrap;
+    transition: color .2s;
+  }
+  .footer-link:hover { color: var(--sage); }
+
+  /* ─── Mobile ─────────────────────────────────────── */
   @media (max-width: 768px) {
-    .wrapper {
-      padding: 0 0.5rem;
-    }
-    
-    .container {
-      padding: 1rem 0;
-    }
+    #mesh-canvas { width: 100%; opacity: .25; }
+    #cursor-dot, #cursor-ring { display: none; }
   }
 </style>
 
 <script>
-  document.addEventListener('DOMContentLoaded', function () {
-    const canvas = document.getElementById('game-of-life-canvas');
-    if (!canvas) return;
-    const ctx = canvas.getContext('2d');
-
-    let cellSize = 12;
-    let speed = 800;
-    const specialColors = ['#8B93FF', '#40E0A4', '#FF8B8B'];
-
-    let grid;
-    let cellColors;
-    let columns;
-    let rows;
-
-    function resizeCanvas() {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-      initGame();
-    }
-
-    function initGame() {
-      columns = Math.ceil(canvas.width / cellSize);
-      rows = Math.ceil(canvas.height / cellSize);
-
-      grid = Array(columns)
-        .fill(null)
-        .map(() =>
-          Array(rows)
-            .fill(null)
-            .map(() => Math.random() > 0.85)
-        );
-      cellColors = Array(columns)
-        .fill(null)
-        .map(() => Array(rows).fill(null));
-
-      draw();
-    }
-
-    function update() {
-      const nextGrid = Array(columns)
-        .fill(null)
-        .map(() => Array(rows).fill(false));
-      const nextColors = Array(columns)
-        .fill(null)
-        .map(() => Array(rows).fill(null));
-
-      for (let x = 0; x < columns; x++) {
-        for (let y = 0; y < rows; y++) {
-          const state = grid[x][y];
-          let neighbors = 0;
-
-          for (let i = -1; i <= 1; i++) {
-            for (let j = -1; j <= 1; j++) {
-              if (i === 0 && j === 0) continue;
-              const xi = (x + i + columns) % columns;
-              const yj = (y + j + rows) % rows;
-              if (grid[xi][yj]) neighbors++;
-            }
-          }
-
-          if (state && (neighbors < 2 || neighbors > 3)) {
-            nextGrid[x][y] = false;
-          } else if (!state && neighbors === 3) {
-            nextGrid[x][y] = true;
-          } else {
-            nextGrid[x][y] = state;
-            if (state) {
-              nextColors[x][y] = cellColors[x][y];
-            }
-          }
-
-          if (nextGrid[x][y] && Math.random() < 0.03) {
-            if (Math.random() < 0.08) {
-              const colorIndex = Math.floor(Math.random() * specialColors.length);
-              nextColors[x][y] = specialColors[colorIndex];
-            } else {
-              nextColors[x][y] = null;
-            }
-          }
-        }
-      }
-
-      grid = nextGrid;
-      cellColors = nextColors;
-    }
-
-    function draw() {
-      ctx.fillStyle = '#f0eee6';
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-      for (let x = 0; x < columns; x++) {
-        for (let y = 0; y < rows; y++) {
-          if (grid[x][y]) {
-            ctx.fillStyle = cellColors[x][y] || '#D4D2C8';
-            ctx.beginPath();
-            ctx.roundRect(x * cellSize, y * cellSize, cellSize - 1, cellSize - 1, 2);
-            ctx.fill();
-          }
-        }
-      }
-    }
-
-    function gameLoop() {
-      update();
-      draw();
-      setTimeout(gameLoop, speed);
-    }
-
-    window.addEventListener('resize', resizeCanvas);
-    resizeCanvas();
-    gameLoop();
+  /* ── cursor ── */
+  const dot  = document.getElementById('cursor-dot')!;
+  const ring = document.getElementById('cursor-ring')!;
+  document.addEventListener('mousemove', e => {
+    dot.style.left  = ring.style.left  = e.clientX + 'px';
+    dot.style.top   = ring.style.top   = e.clientY + 'px';
   });
+  document.querySelectorAll('a,button,[data-hover]').forEach(el => {
+    el.addEventListener('mouseenter', () => ring.classList.add('hovered'));
+    el.addEventListener('mouseleave', () => ring.classList.remove('hovered'));
+  });
+
+  /* ────────────────────────────────────────────────────────────────────────────
+     3-D LOSS LANDSCAPE  +  GRADIENT DESCENT DOT
+     WebGL-free: pure Canvas 2D with custom isometric projection.
+
+     Surface: f(x,y,t) — time-animated wave function.
+     Multiple interference waves produce smooth undulating motion.
+     A dusty-rose dot descends the gradient, leaving a sage trail.
+  ──────────────────────────────────────────────────────────────────────────── */
+  const canvas = document.getElementById('mesh-canvas') as HTMLCanvasElement;
+  const ctx    = canvas.getContext('2d')!;
+
+  let W = 0, H = 0;
+  let elapsed = 0;  // total time in seconds
+
+  /* ---- surface — time-dependent ---- */
+  const N    = 36;
+  const RNG  = Math.PI * 1.6;   // smaller domain → whole mesh fits in canvas
+
+  // Multiple interfering waves with gentle frequencies
+  const f = (x: number, y: number, t: number) =>
+      Math.sin(x * 0.9 + t * 0.55) * Math.cos(y * 0.9 - t * 0.35)
+    + 0.45 * Math.sin(1.6*x + 0.8*y + t * 0.42)
+    + 0.30 * Math.cos(0.7*y - 1.1*x - t * 0.28)
+    + 0.20 * Math.sin((x*x + y*y) * 0.06 - t * 0.5)  // radial ripple from centre
+    + 0.12 * Math.cos(x * y * 0.18 + t * 0.18);
+
+  // Gradient via central difference (passes t through)
+  const df = (x: number, y: number, t: number): [number,number] => {
+    const h = 1e-4;
+    return [
+      (f(x+h,y,t) - f(x-h,y,t)) / (2*h),
+      (f(x,y+h,t) - f(x,y-h,t)) / (2*h),
+    ];
+  };
+
+  /* ---- camera ---- */
+  let angle = 0.3;
+  const PITCH    = 0.50;
+  const SCALE_FAC = 0.18;  // reduced so entire mesh fits within 55%-wide canvas
+
+  const project = (wx:number,wy:number,wz:number):[number,number] => {
+    const rx =  wx*Math.cos(angle) - wy*Math.sin(angle);
+    const ry =  wx*Math.sin(angle) + wy*Math.cos(angle);
+    const sx =  rx;
+    const sy = -ry*Math.sin(PITCH) + wz*Math.cos(PITCH);
+    const sc =  Math.min(W,H) * SCALE_FAC;
+    return [W/2 + sx*sc, H*0.52 - sy*sc];
+  };
+
+  /* ---- grid — rebuilt each frame with current time ---- */
+  type Pt = {wx:number;wy:number;wz:number};
+  let grid: Pt[][] = [];
+
+  // Precompute xy coords once (they never change)
+  const gridXY: Array<Array<[number,number]>> = Array.from({length:N+1}, (_,i) =>
+    Array.from({length:N+1}, (_,j) => [
+      (i/N)*2*RNG - RNG,
+      (j/N)*2*RNG - RNG,
+    ])
+  );
+
+  const buildGrid = (t: number) => {
+    grid = Array.from({length:N+1}, (_,i) =>
+      Array.from({length:N+1}, (_,j) => {
+        const [wx, wy] = gridXY[i][j];
+        return {wx, wy, wz: f(wx, wy, t)};
+      })
+    );
+  };
+
+  /* ---- gradient descent ---- */
+  let gx = -4.8, gy = 3.6;
+  const LR = 0.06;
+  let trail: [number,number][] = [];
+  const TRAIL = 80;
+
+  const resetGD = () => {
+    // Start within the (smaller) domain so the dot stays on-screen
+    gx = (Math.random()*2-1)*RNG*0.7;
+    gy = (Math.random()*2-1)*RNG*0.7;
+    trail = [];
+  };
+
+  /* ---- pastel colours (flat, no gradients) ---- */
+  const C_BG    = '#FAF8F5';
+  const C_LOW   = [196,133, 90] as const;   /* peach */
+  const C_HIGH  = [ 90,143,173] as const;   /* sky   */
+  const C_WIRE  = '#C8BDB5';
+  const C_TRAIL = '#5F9E84';               /* sage  */
+  const C_DOT   = '#C4686E';               /* rose  */
+
+  const lerpColour = (t:number) => {
+    const r = Math.round(C_LOW[0] + (C_HIGH[0]-C_LOW[0])*t);
+    const g = Math.round(C_LOW[1] + (C_HIGH[1]-C_LOW[1])*t);
+    const b = Math.round(C_LOW[2] + (C_HIGH[2]-C_LOW[2])*t);
+    return `rgb(${r},${g},${b})`;
+  };
+
+  /* ---- render ---- */
+  let lastTime = 0, stepAcc = 0;
+
+  const render = (ts: number) => {
+    const dt = Math.min((ts - lastTime) / 1000, 0.05);
+    lastTime = ts;
+    elapsed += dt;
+    angle += dt * 0.05;  // gentle rotation
+
+    /* Rebuild the surface with new time — this is where the waves happen */
+    buildGrid(elapsed);
+
+    /* GD step every ~50ms — uses animated surface gradient */
+    stepAcc += dt;
+    if (stepAcc > 0.05) {
+      stepAcc = 0;
+      const [dfdx, dfdy] = df(gx, gy, elapsed);
+      gx -= LR * dfdx;
+      gy -= LR * dfdy;
+      trail.push([gx, gy]);
+      if (trail.length > TRAIL) trail.shift();
+      const mag2 = dfdx*dfdx + dfdy*dfdy;
+      if (mag2 < 2e-6 || Math.abs(gx)>RNG || Math.abs(gy)>RNG) resetGD();
+    }
+
+    /* clear — canvas is transparent, page background shows through */
+    ctx.clearRect(0,0,W,H);
+
+
+    /* build patch list sorted back-to-front */
+    type Patch = {d:number;i:number;j:number};
+    const patches: Patch[] = [];
+    for (let i=0;i<N;i++) for (let j=0;j<N;j++) {
+      const d = -grid[i][j].wx*Math.cos(angle) - grid[i][j].wy*Math.sin(angle);
+      patches.push({d,i,j});
+    }
+    patches.sort((a,b)=>b.d-a.d);
+
+    for (const {i,j} of patches) {
+      const p00=grid[i][j], p10=grid[i+1][j], p01=grid[i][j+1], p11=grid[i+1][j+1];
+      const [x0,y0]=project(p00.wx,p00.wy,p00.wz);
+      const [x1,y1]=project(p10.wx,p10.wy,p10.wz);
+      const [x2,y2]=project(p11.wx,p11.wy,p11.wz);
+      const [x3,y3]=project(p01.wx,p01.wy,p01.wz);
+      const avgZ=(p00.wz+p10.wz+p01.wz+p11.wz)/4;
+      const MIN=-2.0, MAX=2.0;  // wider range for animated waves
+      const t01=Math.max(0,Math.min(1,(avgZ-MIN)/(MAX-MIN)));
+      ctx.fillStyle = lerpColour(t01);
+      ctx.beginPath();
+      ctx.moveTo(x0,y0); ctx.lineTo(x1,y1); ctx.lineTo(x2,y2); ctx.lineTo(x3,y3);
+      ctx.closePath();
+      ctx.fill();
+      ctx.strokeStyle = C_WIRE;
+      ctx.lineWidth = 0.35;
+      ctx.stroke();
+    }
+
+    /* trail */
+    ctx.lineCap = 'round';
+    ctx.lineJoin = 'round';
+    for (let k=1;k<trail.length;k++) {
+      const [tx0,ty0]=trail[k-1], [tx1,ty1]=trail[k];
+      const z0=f(tx0,ty0,elapsed)+0.04, z1=f(tx1,ty1,elapsed)+0.04;
+      const [sx0,sy0]=project(tx0,ty0,z0);
+      const [sx1,sy1]=project(tx1,ty1,z1);
+      const a=k/trail.length;
+      ctx.globalAlpha = a*.8;
+      ctx.strokeStyle = C_TRAIL;
+      ctx.lineWidth = 1+a*2.2;
+      ctx.beginPath(); ctx.moveTo(sx0,sy0); ctx.lineTo(sx1,sy1); ctx.stroke();
+    }
+    ctx.globalAlpha = 1;
+
+    /* dot — pulsing, high-visibility */
+    const dz = f(gx,gy,elapsed)+0.04;
+    const [dx,dy] = project(gx,gy,dz);
+
+    // Pulsing outer ring: radius oscillates between 14 and 20px
+    const pulse = 14 + 6 * Math.abs(Math.sin(elapsed * 2.8));
+    ctx.strokeStyle = C_DOT;
+    ctx.lineWidth = 2;
+    ctx.globalAlpha = 0.35 + 0.25 * Math.abs(Math.sin(elapsed * 2.8));
+    ctx.beginPath(); ctx.arc(dx, dy, pulse, 0, Math.PI * 2); ctx.stroke();
+
+    // Second tighter ring (static)
+    ctx.globalAlpha = 0.6;
+    ctx.lineWidth = 1.5;
+    ctx.beginPath(); ctx.arc(dx, dy, 10, 0, Math.PI * 2); ctx.stroke();
+
+    // White halo behind the dot for contrast against the mesh
+    ctx.globalAlpha = 0.85;
+    ctx.fillStyle = '#fff';
+    ctx.beginPath(); ctx.arc(dx, dy, 9, 0, Math.PI * 2); ctx.fill();
+
+    // Filled dot
+    ctx.globalAlpha = 1;
+    ctx.fillStyle = C_DOT;
+    ctx.beginPath(); ctx.arc(dx, dy, 7, 0, Math.PI * 2); ctx.fill();
+
+    // White center highlight
+    ctx.fillStyle = '#fff';
+    ctx.globalAlpha = 0.75;
+    ctx.beginPath(); ctx.arc(dx - 2, dy - 2, 2.5, 0, Math.PI * 2); ctx.fill();
+    ctx.globalAlpha = 1;
+
+    requestAnimationFrame(render);
+  };
+
+  const resize = () => {
+    W = canvas.width  = canvas.clientWidth  * window.devicePixelRatio;
+    H = canvas.height = canvas.clientHeight * window.devicePixelRatio;
+    ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
+    W = canvas.clientWidth;
+    H = canvas.clientHeight;
+    buildGrid(elapsed);  // initial build with current time
+  };
+
+  window.addEventListener('resize', resize);
+  resize();
+  resetGD();
+  requestAnimationFrame(render);
 </script>

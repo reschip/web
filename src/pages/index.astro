@@ -1,680 +1,951 @@
 ---
-// index.astro - Main portfolio page.
 import Layout from '../layouts/Layout.astro';
 import TechIcon from '../components/TechIcon.astro';
 import TechIconMobile from '../components/TechiconMobile.astro'
-
 ---
 
-<Layout 
+<Layout
   title="Home"
   description="Portfolio and blog of Andrés Cruz Chipol, passionate about artificial intelligence, data science, and software development."
 >
-  <canvas id="game-of-life-canvas"></canvas>
-  <section class="flex flex-col justify-center min-h-screen gap-[12px] items-center lg:mt-[-20px] ">
-    <img class="w-20 h-20 rounded-full border-4 border-white border-solid visible shadow-md sm:w-40 " src="/profile.webp" alt="Foto de perfil de Andrés Cruz Chipol">
-    <h1 class=" font-extrabold text-center text-[20px] 
-                sm:text-[35px] sm:px-[25px] sm:py-[2px] 
-                md:text-[50px] 
-                lg:text-[70px]">
-      Andres Cruz Chipol
-    </h1>
-    <div class="flex flex-row justify-between my-[10px] w-70 sm:w-100">
-        <a href="https://www.linkedin.com/in/andreschipol/" target="_blank"  rel="noopener noreferrer">
-          <svg class="w-8 h-8 text-[#0a66c2] sm:w-12 sm:h-12 " fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"/></svg>
-        </a>
-        <a href="https://github.com/reschip" target="_blank" rel="noopener noreferrer">
-          <svg class="w-8 h-8 sm:w-12 sm:h-12" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3 .3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5 .3-6.2 2.3zm44.2-1.7c-2.9 .7-4.9 2.6-4.6 4.9 .3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3 .7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3 .3 2.9 2.3 3.9 1.6 1 3.6 .7 4.3-.7 .7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3 .7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3 .7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
-        </a>
-        <a href="https://x.com/reschip" target="_blank" rel="noopener noreferrer">
-          <svg class="w-8 h-8 sm:w-12 sm:h-12" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path d="M64 32C28.7 32 0 60.7 0 96V416c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V96c0-35.3-28.7-64-64-64H64zm297.1 84L257.3 234.6 379.4 396H283.8L209 298.1 123.3 396H75.8l111-126.9L69.7 116h98l67.7 89.5L313.6 116h47.5zM323.3 367.6L153.4 142.9H125.1L296.9 367.6h26.3z"/></svg> 
-        </a>
-        <a href="https://www.kaggle.com/andreschipol" target="_blank" rel="noopener noreferrer">
-          <svg class="w-8 h-8 text-[#57bafb] sm:w-12 sm:h-12" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path d="M304.2 501.5L158.4 320.3 298.2 185c2.6-2.7 1.7-10.5-5.3-10.5h-69.2c-3.5 0-7 1.8-10.5 5.3L80.9 313.5V7.5q0-7.5-7.5-7.5H21.5Q14 0 14 7.5v497q0 7.5 7.5 7.5h51.9q7.5 0 7.5-7.5v-109l30.8-29.3 110.5 140.6c3 3.5 6.5 5.3 10.5 5.3h66.9q5.3 0 6-3z"/></svg>
-        </a>
-        <a href="https://huggingface.co/reschip" target="_blank" rel="noopener noreferrer">
-          <img class="w-8 h-8 sm:w-12 sm:h-12" src="hf-logo.svg" alt="Logo de Hugging Face" class="w-24 h-24">
-        </a>
-    </div>
 
-    <p class="text-[17px] text-center font-medium w-70 sm:hidden">Computer scientist focused on Artificial Intelligence</p>
-    <p class="hidden sm:text-[20px] sm:px-12  sm:text-center sm:block  md:text-[30px] md:px-0 lg:px-0 ">
-      Computer scientist focused on Artificial Intelligence, where theory and practice become one. Research enthusiast and supporter of open source.
-    </p>
-    <a href="#about-section" class="mt-[10px] animate-bounce-arrow sm:mt-[50px]">
-      <svg class="w-12 h-12" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path fill="#f42c04" d="M137.4 374.6c12.5 12.5 32.8 12.5 45.3 0l128-128c9.2-9.2 11.9-22.9 6.9-34.9s-16.6-19.8-29.6-19.8L32 192c-12.9 0-24.6 7.8-29.6 19.8s-2.2 25.7 6.9 34.9l128 128z"/></svg>
-    </a>
-  </section>
+  <!-- ══════════════════════════════════════════════════════════
+       HERO  — split layout: left panel / right = 3D canvas
+  ══════════════════════════════════════════════════════════ -->
+  <section class="hero">
+    <!-- Left: content panel -->
+    <div class="hero__panel">
+      <img class="hero__avatar" src="/profile.webp" alt="Andrés Cruz Chipol" />
 
-  <section id="about-section" class="mb-5 mt-[-50px] sm:text-xl ">
-    <h2 class="section-title ">About</h2>
-    <p>I was born in Mexico, in a developing city where the river whispers stories to the sun and oil sleeps beneath cacao trees that dream of rain.</p>
-    <p>I traveled where the sea murmurs winds from the Isthmus and ships dance to the rhythm of the sandunga.</p>
-    <p>I learned where domes touch the sky amid the scents of talavera and mole, and time walks through alleyways filled with history.</p>
-  </section>
+      <p class="hero__eyebrow">Computer Scientist · AI Engineer</p>
 
-  <section class="bg-[#f9f8f596]">
-    <h2 class="section-title">Work Experience</h2>
-    <div class="flex flex-col">
-    <div class="experience-item">
-      <img class="w-20 rounded-sm hidden sm:block" src="layer7_mx_logo.jpeg" alt="Logo de Layer7">
-      <div class="content-column">
-        <div class="date-column">Aug 24 - Aug 25</div>
-        <h3 class="job-title">Artificial Intelligence Analyst</h3>
-        <div class="company">Layer7</div>
+      <h1 class="hero__name">
+        Andres<br/>
+        <span class="hero__accent">Cruz Chipol</span>
+      </h1>
+
+      <p class="hero__bio">
+        Building intelligent systems where theory and practice become one.
+        Research enthusiast and supporter of open source.
+      </p>
+
+      <div class="hero__socials">
+        <a href="https://www.linkedin.com/in/andreschipol/" target="_blank" rel="noopener noreferrer" class="social-btn" title="LinkedIn">
+          <svg viewBox="0 0 448 512" fill="currentColor"><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"/></svg>
+        </a>
+        <a href="https://github.com/reschip" target="_blank" rel="noopener noreferrer" class="social-btn" title="GitHub">
+          <svg viewBox="0 0 496 512" fill="currentColor"><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8z"/></svg>
+        </a>
+        <a href="https://x.com/reschip" target="_blank" rel="noopener noreferrer" class="social-btn" title="X">
+          <svg viewBox="0 0 448 512" fill="currentColor"><path d="M64 32C28.7 32 0 60.7 0 96V416c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V96c0-35.3-28.7-64-64-64H64zm297.1 84L257.3 234.6 379.4 396H283.8L209 298.1 123.3 396H75.8l111-126.9L69.7 116h98l67.7 89.5L313.6 116h47.5zM323.3 367.6L153.4 142.9H125.1L296.9 367.6h26.3z"/></svg>
+        </a>
+        <a href="https://www.kaggle.com/andreschipol" target="_blank" rel="noopener noreferrer" class="social-btn" title="Kaggle">
+          <svg viewBox="0 0 320 512" fill="currentColor"><path d="M304.2 501.5L158.4 320.3 298.2 185c2.6-2.7 1.7-10.5-5.3-10.5h-69.2c-3.5 0-7 1.8-10.5 5.3L80.9 313.5V7.5q0-7.5-7.5-7.5H21.5Q14 0 14 7.5v497q0 7.5 7.5 7.5h51.9q7.5 0 7.5-7.5v-109l30.8-29.3 110.5 140.6c3 3.5 6.5 5.3 10.5 5.3h66.9q5.3 0 6-3z"/></svg>
+        </a>
+        <a href="https://huggingface.co/reschip" target="_blank" rel="noopener noreferrer" class="social-btn" title="Hugging Face">
+          <img src="hf-logo.svg" alt="HF" />
+        </a>
+      </div>
+
+      <!-- mini legend for the 3D animation -->
+      <div class="viz-legend">
+        <span class="viz-legend__dot viz-legend__dot--trail"></span>
+        <span class="viz-legend__label">Gradient path</span>
+        <span class="viz-legend__dot viz-legend__dot--point"></span>
+        <span class="viz-legend__label">Current point</span>
       </div>
     </div>
 
-    <div class="experience-item">
-      <img class="w-20 rounded-sm hidden sm:block" src="9b31d507dd2bb615fb4a9a066087caac.jpeg" alt="Logo de Hospital Angeles">
-      <div class="content-column">
-        <div class="date-column">Nov 22 - Apr 23</div>
-        <h3 class="job-title">Data Scientist Intership</h3>
-        <div class="company">Hospital Angeles</div>
-      </div>
-    </div>
-    
-    <div class="experience-item">
-      <img class="w-20 rounded-sm hidden sm:block" src="imagen_base_slider.png" alt="Logo de BUAP">
-      <div class="content-column">
-        <div class="date-column">Aug 21 - Oct 21</div>
-        <h3 class="job-title">Research Stay - Machine Learning</h3>
-        <div class="company">BUAP - Benemérita Universidad Autónoma de Puebla</div>
-      </div>
-    </div>
-
-    <div class="experience-item">
-      <img class="w-20 rounded-sm hidden sm:block" src="q-CnogwU_400x400.jpg" alt="Logo de CIMAT">
-      <div class="content-column">
-        <div class="date-column">Jun 21 - Aug 21</div>
-        <h3 class="job-title">Summer Internship – Data Science</h3>
-        <div class="company">CIMAT - Centro de Investigación en Matemáticas, A.C.</div>
-      </div>
-    </div>
-    </div>
+    <!-- Right: the canvas is placed here by CSS (fixed) — this spacer keeps the flow -->
+    <div class="hero__canvas-spacer" aria-hidden="true"></div>
   </section>
 
-  <section>
-    <h2 class="section-title ">Stack</h2>
-    <div class="sm:flex sm:flex-wrap justify-center gap-6 p-8 hidden sm:visible">
-    <TechIcon
-      iconSrc="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg"
-      iconName="Python"
-    />
-    <TechIcon 
-      iconSrc="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg"
-      iconName="Javascript"
-      class="mt-[-30px]"
-    />
-    <TechIcon
-      iconSrc="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/cplusplus/cplusplus-original.svg"
-      iconName="C++"
-    />
-    <TechIcon
-      iconSrc="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/postgresql/postgresql-original.svg"
-      iconName="Postgres"
-      class="mt-[-30px]" 
-    />
-    
-    <TechIcon
-      iconSrc="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mysql/mysql-original.svg"
-      iconName="Mysql"
-    />
+  <!-- ══════════════════════════════════════════════════════════
+       CONTENT AREA — solid cream background, full width
+  ══════════════════════════════════════════════════════════ -->
+  <div class="content-area">
 
-    {/* Herramientas y Entornos */}
-    <TechIcon
-      iconSrc="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/jupyter/jupyter-original.svg"
-      iconName="Jupyter"
-    />
-    <TechIcon
-      iconSrc="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vscode/vscode-original.svg"
-      iconName="VSCode"
-      class="mt-[-30px]"
-    />
-    <TechIcon
-      iconSrc="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/docker/docker-original.svg"
-      iconName="Docker"
-    />
-    <TechIcon
-      iconSrc="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg"
-      iconName="Git"
-      class="mt-[-30px]"
-    />
-    <TechIcon
-      iconSrc="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/github/github-original.svg"
-      iconName="Github"
-    />
-    <TechIcon
-      iconSrc="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/bitbucket/bitbucket-original.svg"
-      iconName="Bitbucket"
-    />
-
-
-    {/* Frameworks y Librerías de Python / ML */}
-    <TechIcon
-      iconSrc="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/fastapi/fastapi-original.svg"
-      iconName="Fastapi"
-      class="mt-[-30px]"
-    />
-    <TechIcon
-      iconSrc="https://images.chainguard.dev/logos/mlflow.svg"
-      iconName="MLflow"
-    /> 
-    <TechIcon
-      iconSrc="https://registry.npmmirror.com/@lobehub/icons-static-png/latest/files/dark/langgraph-color.png"
-      iconName="Langgraph"
-      class="mt-[-30px]"
-    />
-    <TechIcon
-      iconSrc="https://registry.npmmirror.com/@lobehub/icons-static-png/1.47.0/files/dark/langchain-color.png"
-      iconName="Langchain"
-    /> 
-    {/* Librerías de Data Science y ML */}
-    <TechIcon
-      iconSrc="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/numpy/numpy-original.svg"
-      iconName="Numpy"
-    />
-    <TechIcon
-      iconSrc="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/pandas/pandas-original.svg"
-      iconName="Pandas"
-      class="mt-[-30px]"
-    />
-    <TechIcon
-      iconSrc="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/matplotlib/matplotlib-original.svg"
-      iconName="Matplotlib"
-    />
-    <TechIcon
-      iconSrc='https://cdn.worldvectorlogo.com/logos/seaborn-1.svg'
-      iconName="Seaborn"
-      class="mt-[-30px]"
-    /> 
-    
-    <TechIcon
-      iconSrc="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/scikitlearn/scikitlearn-original.svg"
-      iconName="Scikit-Learn"
-    />
-    <TechIcon
-      iconSrc="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tensorflow/tensorflow-original.svg"
-      iconName="Tensorflow"
-      class="mt-[-30px]"
-    />
-    <TechIcon
-      iconSrc="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/keras/keras-original.svg"
-      iconName="Keras"
-    />
-    <TechIcon
-      iconSrc="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/pytorch/pytorch-original.svg"
-      iconName="Pytorch"
-      class="mt-[-30px]"
-    />
-    </div>
-
-    <div class="visible mt-5 flex flex-wrap items-center justify-center sm:hidden">
-      {/* Lenguajes de Programación */}
-      <TechIconMobile
-        iconSrc="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg"
-        iconName="Python"
-      />
-      <TechIconMobile
-        iconSrc="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg"
-        iconName="Javascript"
-        class="mt-[-30px]"
-      />
-      <TechIconMobile
-        iconSrc="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/cplusplus/cplusplus-original.svg"
-        iconName="C++"
-      />
-      <TechIconMobile
-        iconSrc="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/postgresql/postgresql-original.svg"
-        iconName="Postgres"
-        class="mt-[-30px]"
-      />
-
-      <TechIconMobile
-        iconSrc="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mysql/mysql-original.svg"
-        iconName="Mysql"
-      />
-
-      {/* Herramientas y Entornos */}
-      <TechIconMobile
-        iconSrc="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/jupyter/jupyter-original.svg"
-        iconName="Jupyter"
-      />
-      <TechIconMobile
-        iconSrc="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vscode/vscode-original.svg"
-        iconName="VSCode"
-        class="mt-[-30px]"
-      />
-      <TechIconMobile
-        iconSrc="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/docker/docker-original.svg"
-        iconName="Docker"
-      />
-      <TechIconMobile
-        iconSrc="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg"
-        iconName="Git"
-        class="mt-[-30px]"
-      />
-      <TechIconMobile
-        iconSrc="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/github/github-original.svg"
-        iconName="Github"
-      />
-      <TechIconMobile
-        iconSrc="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/bitbucket/bitbucket-original.svg"
-        iconName="Bitbucket"
-      />
-
-
-      {/* Frameworks y Librerías de Python / ML */}
-      <TechIconMobile
-        iconSrc="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/fastapi/fastapi-original.svg"
-        iconName="Fastapi"
-        class="mt-[-30px]"
-      />
-      <TechIconMobile
-        iconSrc="https://images.chainguard.dev/logos/mlflow.svg"
-        iconName="MLflow"
-      />
-      <TechIconMobile
-        iconSrc="https://registry.npmmirror.com/@lobehub/icons-static-png/latest/files/dark/langgraph-color.png"
-        iconName="Langgraph"
-        class="mt-[-30px]"
-      />
-      <TechIconMobile
-        iconSrc="https://registry.npmmirror.com/@lobehub/icons-static-png/1.47.0/files/dark/langchain-color.png"
-        iconName="Langchain"
-      />
-      {/* Librerías de Data Science y ML */}
-      <TechIconMobile
-        iconSrc="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/numpy/numpy-original.svg"
-        iconName="Numpy"
-      />
-      <TechIconMobile
-        iconSrc="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/pandas/pandas-original.svg"
-        iconName="Pandas"
-        class="mt-[-30px]"
-      />
-      <TechIconMobile
-        iconSrc="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/matplotlib/matplotlib-original.svg"
-        iconName="Matplotlib"
-      />
-      <TechIconMobile
-        iconSrc='https://cdn.worldvectorlogo.com/logos/seaborn-1.svg'
-        iconName="Seaborn"
-        class="mt-[-30px]"
-      />
-
-      <TechIconMobile
-        iconSrc="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/scikitlearn/scikitlearn-original.svg"
-        iconName="Scikit-Learn"
-      />
-      <TechIconMobile
-        iconSrc="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tensorflow/tensorflow-original.svg"
-        iconName="Tensorflow"
-        class="mt-[-30px]"
-      />
-      <TechIconMobile
-        iconSrc="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/keras/keras-original.svg"
-        iconName="Keras"
-      />
-      <TechIconMobile
-        iconSrc="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/pytorch/pytorch-original.svg"
-        iconName="Pytorch"
-        class="mt-[-30px]"
-      />
-</div>
-  </section>
-  
-  <section class="bg-[#f9f8f596] py-10 px-6 rounded-xl shadow-sm">
-    <h2 class="section-title">Side Projects</h2>
-    <p class="text-base sm:text-lg text-[#0f1a20] mb-6">
-      Explorations that begin as MVPs and move toward production-ready products. Get a snapshot of
-      what I am building beyond the main portfolio.
-    </p>
-    <ul class="space-y-3 list-disc pl-6 text-[#0f1a20]">
-      <li>
-        <div>
-          <h3 class="text-xl font-semibold">Snake minimalist Game</h3>
-          <p class="text-sm sm:text-base text-gray-700">
-            Minimalist Flutter mobile game validating its core loop with a golden apple boost and a
-            streamlined interface on the way to Google Play Store.
-          </p>
+    <!-- ABOUT -->
+    <section class="section reveal" id="about-section">
+      <h2 class="section-kicker">About</h2>
+      <div class="about-grid">
+        <div class="about-bar"></div>
+        <div class="about-body">
+          <p>I was born in Mexico, in a developing city where the river whispers stories to the sun and oil sleeps beneath cacao trees that dream of rain.</p>
+          <p>I traveled where the sea murmurs winds from the Isthmus and ships dance to the rhythm of the sandunga.</p>
+          <p>I learned where domes touch the sky amid the scents of talavera and mole, and time walks through alleyways filled with history.</p>
         </div>
-      </li>
-    </ul>
-    <a
-      href="/sideprojects"
-      class="mt-4 inline-flex items-center gap-2 rounded-full border border-[#5bc0be] px-4 py-2 text-[#5bc0be] font-medium transition hover:bg-[#5bc0be]/10"
-    >
-      Explore all side projects
-      <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-    </a>
-  </section>
+      </div>
+    </section>
 
-  <section>
-  <h2 class="section-title text-2xl font-bold text-gray-800 mb-6">Course / Certifications</h2>
-  
-  <div class="grid grid-cols-1 lg:grid-cols-2 gap-3">
-      <div class="flex items-center gap-2 p-3 bg-[#f5e3c8] rounded transition-transform hover:-translate-y-0.5 min-h-[80px]">
-          <svg class="w-5 h-5 text-[#f3a734] flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"/>
-          </svg>
-          <div class="flex-1 min-w-0">
-              <h3 class="text-sm font-medium text-gray-800 mb-0.5 leading-tight">
-                  Data Engineering Professional Certificate
-              </h3>
-              <div class="flex items-center gap-1.5 text-xs text-gray-600">
-                  <span class="font-medium text-gray-700">DeepLearning.AI</span>
-                  <span class="text-gray-400">•</span>
-                  <span class="text-gray-500">Mar 2025</span>
-              </div>
+    <!-- WORK EXPERIENCE -->
+    <section class="section reveal">
+      <h2 class="section-kicker">Work Experience</h2>
+      <div class="xp-list">
+
+        <div class="xp-item" data-hover>
+          <div class="xp-meta">
+            <span class="xp-date">Aug 2024 – Aug 2025</span>
+            <img class="xp-logo" src="layer7_mx_logo.jpeg" alt="Layer7">
           </div>
-          <div class="text-xs text-[#D99530] font-mono bg-gray-50 px-1 py-0.5 rounded text-right whitespace-nowrap">
-              1T31Y80LUUQV
+          <div class="xp-body">
+            <h3 class="xp-role">Artificial Intelligence Analyst</h3>
+            <span class="xp-company">Layer7</span>
           </div>
+        </div>
+
+        <div class="xp-item" data-hover>
+          <div class="xp-meta">
+            <span class="xp-date">Nov 2022 – Apr 2023</span>
+            <img class="xp-logo" src="9b31d507dd2bb615fb4a9a066087caac.jpeg" alt="Hospital Ángeles">
+          </div>
+          <div class="xp-body">
+            <h3 class="xp-role">Data Scientist Internship</h3>
+            <span class="xp-company">Hospital Ángeles</span>
+          </div>
+        </div>
+
+        <div class="xp-item" data-hover>
+          <div class="xp-meta">
+            <span class="xp-date">Aug 2021 – Oct 2021</span>
+            <img class="xp-logo" src="imagen_base_slider.png" alt="BUAP">
+          </div>
+          <div class="xp-body">
+            <h3 class="xp-role">Research Stay — Machine Learning</h3>
+            <span class="xp-company">BUAP · Benemérita Universidad Autónoma de Puebla</span>
+          </div>
+        </div>
+
+        <div class="xp-item" data-hover>
+          <div class="xp-meta">
+            <span class="xp-date">Jun 2021 – Aug 2021</span>
+            <img class="xp-logo" src="q-CnogwU_400x400.jpg" alt="CIMAT">
+          </div>
+          <div class="xp-body">
+            <h3 class="xp-role">Summer Internship — Data Science</h3>
+            <span class="xp-company">CIMAT · Centro de Investigación en Matemáticas, A.C.</span>
+          </div>
+        </div>
+
       </div>
-      
-      <div class="flex items-center gap-2 p-3 bg-[#f5e3c8] rounded transition-transform hover:-translate-y-0.5 min-h-[80px]">
-          <svg class="w-5 h-5 text-[#f3a734] flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
-          </svg>
-          <div class="flex-1 min-w-0">
-              <h3 class="text-sm font-medium text-gray-800 mb-0.5 leading-tight">
-                  Introduction to LangGraph
-              </h3>
-              <div class="flex items-center gap-1.5 text-xs text-gray-600">
-                  <span class="font-medium text-gray-700">LangChain</span>
-                  <span class="text-gray-400">•</span>
-                  <span class="text-gray-500">Mar 2025</span>
-              </div>
+    </section>
+
+    <!-- TECH STACK — infinite marquee ticker -->
+    <section class="section section--stack reveal">
+      <h2 class="section-kicker">Stack</h2>
+      <p class="section-sub">From model training to production systems.</p>
+
+      <div class="marquee-wrap">
+
+        <!-- Row 1 → scrolls left -->
+        <div class="marquee">
+          <div class="marquee__track marquee__track--left">
+            <!-- Original set -->
+            <div class="tech-pill"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg"       alt="Python">      <span>Python</span></div>
+            <div class="tech-pill"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/pytorch/pytorch-original.svg"     alt="PyTorch">     <span>PyTorch</span></div>
+            <div class="tech-pill"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tensorflow/tensorflow-original.svg" alt="TensorFlow"><span>TensorFlow</span></div>
+            <div class="tech-pill"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/keras/keras-original.svg"         alt="Keras">       <span>Keras</span></div>
+            <div class="tech-pill"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/scikitlearn/scikitlearn-original.svg" alt="Scikit">  <span>Scikit-Learn</span></div>
+            <div class="tech-pill"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/numpy/numpy-original.svg"         alt="NumPy">       <span>NumPy</span></div>
+            <div class="tech-pill"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/pandas/pandas-original.svg"       alt="Pandas">      <span>Pandas</span></div>
+            <div class="tech-pill"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/matplotlib/matplotlib-original.svg" alt="Matplotlib"><span>Matplotlib</span></div>
+            <div class="tech-pill"><img src="https://registry.npmmirror.com/@lobehub/icons-static-png/latest/files/dark/langchain-color.png" alt="LangChain"><span>LangChain</span></div>
+            <div class="tech-pill"><img src="https://registry.npmmirror.com/@lobehub/icons-static-png/latest/files/dark/langgraph-color.png" alt="LangGraph"><span>LangGraph</span></div>
+            <div class="tech-pill"><img src="https://images.chainguard.dev/logos/mlflow.svg"                                             alt="MLflow">      <span>MLflow</span></div>
+            <div class="tech-pill"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/fastapi/fastapi-original.svg"     alt="FastAPI">     <span>FastAPI</span></div>
+            <!-- Duplicate for seamless loop -->
+            <div class="tech-pill" aria-hidden="true"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg"       alt=""><span>Python</span></div>
+            <div class="tech-pill" aria-hidden="true"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/pytorch/pytorch-original.svg"     alt=""><span>PyTorch</span></div>
+            <div class="tech-pill" aria-hidden="true"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tensorflow/tensorflow-original.svg" alt=""><span>TensorFlow</span></div>
+            <div class="tech-pill" aria-hidden="true"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/keras/keras-original.svg"         alt=""><span>Keras</span></div>
+            <div class="tech-pill" aria-hidden="true"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/scikitlearn/scikitlearn-original.svg" alt=""><span>Scikit-Learn</span></div>
+            <div class="tech-pill" aria-hidden="true"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/numpy/numpy-original.svg"         alt=""><span>NumPy</span></div>
+            <div class="tech-pill" aria-hidden="true"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/pandas/pandas-original.svg"       alt=""><span>Pandas</span></div>
+            <div class="tech-pill" aria-hidden="true"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/matplotlib/matplotlib-original.svg" alt=""><span>Matplotlib</span></div>
+            <div class="tech-pill" aria-hidden="true"><img src="https://registry.npmmirror.com/@lobehub/icons-static-png/latest/files/dark/langchain-color.png" alt=""><span>LangChain</span></div>
+            <div class="tech-pill" aria-hidden="true"><img src="https://registry.npmmirror.com/@lobehub/icons-static-png/latest/files/dark/langgraph-color.png" alt=""><span>LangGraph</span></div>
+            <div class="tech-pill" aria-hidden="true"><img src="https://images.chainguard.dev/logos/mlflow.svg"                                             alt=""><span>MLflow</span></div>
+            <div class="tech-pill" aria-hidden="true"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/fastapi/fastapi-original.svg"     alt=""><span>FastAPI</span></div>
           </div>
-          <div class="text-xs text-[#D99530] font-mono bg-gray-50 px-1 py-0.5 rounded text-right whitespace-nowrap">
-              kkg359aynw
+        </div>
+
+        <!-- Row 2 → scrolls right -->
+        <div class="marquee">
+          <div class="marquee__track marquee__track--right">
+            <!-- Original set -->
+            <div class="tech-pill"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg" alt="JS">      <span>JavaScript</span></div>
+            <div class="tech-pill"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/cplusplus/cplusplus-original.svg"   alt="C++">     <span>C++</span></div>
+            <div class="tech-pill"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/postgresql/postgresql-original.svg" alt="Postgres"><span>PostgreSQL</span></div>
+            <div class="tech-pill"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mysql/mysql-original.svg"           alt="MySQL">   <span>MySQL</span></div>
+            <div class="tech-pill"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/docker/docker-original.svg"         alt="Docker">  <span>Docker</span></div>
+            <div class="tech-pill"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg"               alt="Git">     <span>Git</span></div>
+            <div class="tech-pill"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/github/github-original.svg"         alt="GitHub">  <span>GitHub</span></div>
+            <div class="tech-pill"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/jupyter/jupyter-original.svg"       alt="Jupyter"> <span>Jupyter</span></div>
+            <div class="tech-pill"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vscode/vscode-original.svg"         alt="VSCode">  <span>VS Code</span></div>
+            <div class="tech-pill"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/bitbucket/bitbucket-original.svg"   alt="Bitbucket"><span>Bitbucket</span></div>
+            <div class="tech-pill"><img src="https://cdn.worldvectorlogo.com/logos/seaborn-1.svg"                                          alt="Seaborn"> <span>Seaborn</span></div>
+            <!-- Duplicate -->
+            <div class="tech-pill" aria-hidden="true"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg" alt=""><span>JavaScript</span></div>
+            <div class="tech-pill" aria-hidden="true"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/cplusplus/cplusplus-original.svg"   alt=""><span>C++</span></div>
+            <div class="tech-pill" aria-hidden="true"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/postgresql/postgresql-original.svg" alt=""><span>PostgreSQL</span></div>
+            <div class="tech-pill" aria-hidden="true"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mysql/mysql-original.svg"           alt=""><span>MySQL</span></div>
+            <div class="tech-pill" aria-hidden="true"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/docker/docker-original.svg"         alt=""><span>Docker</span></div>
+            <div class="tech-pill" aria-hidden="true"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg"               alt=""><span>Git</span></div>
+            <div class="tech-pill" aria-hidden="true"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/github/github-original.svg"         alt=""><span>GitHub</span></div>
+            <div class="tech-pill" aria-hidden="true"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/jupyter/jupyter-original.svg"       alt=""><span>Jupyter</span></div>
+            <div class="tech-pill" aria-hidden="true"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vscode/vscode-original.svg"         alt=""><span>VS Code</span></div>
+            <div class="tech-pill" aria-hidden="true"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/bitbucket/bitbucket-original.svg"   alt=""><span>Bitbucket</span></div>
+            <div class="tech-pill" aria-hidden="true"><img src="https://cdn.worldvectorlogo.com/logos/seaborn-1.svg"                                          alt=""><span>Seaborn</span></div>
           </div>
+        </div>
+
       </div>
-      
-      <div class="flex items-center gap-2 p-3 bg-[#f5e3c8] rounded transition-transform hover:-translate-y-0.5 min-h-[80px]">
-          <svg class="w-5 h-5 text-[#f3a734] flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z"/>
-          </svg>
-          <div class="flex-1 min-w-0">
-              <h3 class="text-sm font-medium text-gray-800 mb-0.5 leading-tight">
-                  Google Cloud Computing Foundations
-              </h3>
-              <div class="flex items-center gap-1.5 text-xs text-gray-600">
-                  <span class="font-medium text-gray-700">Google</span>
-                  <span class="text-gray-400">•</span>
-                  <span class="text-gray-500">Mar 2024</span>
-              </div>
+    </section>
+
+
+
+    <!-- SIDE PROJECTS -->
+    <section class="section reveal">
+      <h2 class="section-kicker">Side Projects</h2>
+      <p class="section-sub">Explorations that begin as MVPs and move toward production-ready products.</p>
+
+      <div class="proj-list">
+        <div class="proj-item" data-hover>
+          <span class="proj-num">01</span>
+          <div class="proj-content">
+            <h3 class="proj-title">Snake Minimalist Game</h3>
+            <p class="proj-desc">Minimalist Flutter mobile game with a golden apple boost and a streamlined interface — on the way to Google Play Store.</p>
           </div>
+          <span class="proj-arrow" aria-hidden="true">→</span>
+        </div>
       </div>
-      
-      <div class="flex items-center gap-2 p-3 bg-[#f5e3c8] rounded transition-transform hover:-translate-y-0.5 min-h-[80px]">
-          <svg class="w-5 h-5 text-[#f3a734] flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
-          </svg>
-          <div class="flex-1 min-w-0">
-              <h3 class="text-sm font-medium text-gray-800 mb-0.5 leading-tight">
-                  Quantitative Analyst with R Track
-              </h3>
-              <div class="flex items-center gap-1.5 text-xs text-gray-600">
-                  <span class="font-medium text-gray-700">DataCamp</span>
-                  <span class="text-gray-400">•</span>
-                  <span class="text-gray-500">Jul 2021</span>
-              </div>
-          </div>
+
+      <a href="/sideprojects" class="cta-link">
+        Explore all side projects
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      </a>
+    </section>
+
+    <!-- CERTIFICATIONS — terminal log -->
+    <section class="section section--terminal reveal">
+
+      <!-- Fake terminal window title bar -->
+      <div class="term-bar">
+        <span class="term-dot" style="background:#C4686E"></span>
+        <span class="term-dot" style="background:#D4A574"></span>
+        <span class="term-dot" style="background:#5F9E84"></span>
+        <span class="term-filename">certificates.log</span>
       </div>
-      
-      <div class="flex items-center gap-2 p-3 bg-[#f5e3c8] rounded transition-transform hover:-translate-y-0.5 min-h-[80px]">
-          <svg class="w-5 h-5 text-[#f3a734] flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01"/>
-          </svg>
-          <div class="flex-1 min-w-0">
-              <h3 class="text-sm font-medium text-gray-800 mb-0.5 leading-tight">
-                  AZ-900: Microsoft Azure Fundamentals
-              </h3>
-              <div class="flex items-center gap-1.5 text-xs text-gray-600">
-                  <span class="font-medium text-gray-700">Microsoft</span>
-                  <span class="text-gray-400">•</span>
-                  <span class="text-gray-500">Jun 2021</span>
-              </div>
-          </div>
-          <div class="text-xs text-[#D99530] font-mono bg-gray-50 px-1 py-0.5 rounded text-right whitespace-nowrap">
-              90029376
-          </div>
+
+      <!-- Terminal body -->
+      <div class="term-body">
+
+        <!-- Prompt line -->
+        <div class="term-prompt">
+          <span class="term-user">andreschipol</span><span class="term-at">@</span><span class="term-host">portfolio</span><span class="term-symbol"> % </span><span class="term-cmd">cat certificates.log</span>
+        </div>
+
+        <!-- Log lines -->
+        <div class="log-line" data-hover>
+          <span class="log-ts">2025-03</span>
+          <span class="log-lvl">CERT</span>
+          <span class="log-msg">Data Engineering Professional Certificate</span>
+          <span class="log-src">DeepLearning.AI</span>
+          <code class="log-id">1T31Y80LUUQV</code>
+        </div>
+
+        <div class="log-line" data-hover>
+          <span class="log-ts">2025-03</span>
+          <span class="log-lvl">CERT</span>
+          <span class="log-msg">Introduction to LangGraph</span>
+          <span class="log-src">LangChain</span>
+          <code class="log-id">kkg359aynw</code>
+        </div>
+
+        <div class="log-line" data-hover>
+          <span class="log-ts">2024-03</span>
+          <span class="log-lvl">CERT</span>
+          <span class="log-msg">Google Cloud Computing Foundations</span>
+          <span class="log-src">Google</span>
+          <code class="log-id">—</code>
+        </div>
+
+        <div class="log-line" data-hover>
+          <span class="log-ts">2021-07</span>
+          <span class="log-lvl">CERT</span>
+          <span class="log-msg">Quantitative Analyst with R Track</span>
+          <span class="log-src">DataCamp</span>
+          <code class="log-id">—</code>
+        </div>
+
+        <div class="log-line" data-hover>
+          <span class="log-ts">2021-06</span>
+          <span class="log-lvl">CERT</span>
+          <span class="log-msg">AZ-900: Microsoft Azure Fundamentals</span>
+          <span class="log-src">Microsoft</span>
+          <code class="log-id">90029376</code>
+        </div>
+
+        <!-- Cursor line -->
+        <div class="term-cursor-line">
+          <span class="term-symbol">% </span><span class="term-cursor">█</span>
+        </div>
+
       </div>
-  </div>
-  </section>
+    </section>
+
+
+  </div><!-- /content-area -->
+
 </Layout>
 
 <style is:global>
-  /* === Reseteo y Estilos Base === */
-  html, body {
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    height: 100%;
-    font-family: Arial, sans-serif;
-    color: #0f1a20;
+  /* ═══════════════════════════════════════════════════
+     TOKENS
+  ═══════════════════════════════════════════════════ */
+  :root {
+    --cream:      #FAF8F5;
+    --cream-2:    #F2EDE8;
+    --sage:       #5F9E84;
+    --sage-lt:    #A8CBBF;
+    --rose:       #C4686E;
+    --sky:        #5A8FAD;
+    --mauve:      #7E6B9C;
+    --peach:      #C4855A;
+    --ink:        #1A1714;
+    --ink-2:      #4A433D;
+    --dust:       #9A9089;
+    --rule:       #DDD5CC;
   }
 
-  html {
-    scroll-behavior: smooth;
+  /* ═══════════════════════════════════════════════════
+     HERO
+  ═══════════════════════════════════════════════════ */
+  .hero {
+    display: grid;
+    grid-template-columns: 1fr 55%;
+    min-height: 100vh;
   }
 
-  img {
-    max-width: 100%;
-    height: auto;
-  }
-
-  /* === Animación de Fondo (Canvas) === */
-  #game-of-life-canvas {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -1; /* Se posiciona detrás de todo el contenido. */
-    opacity: 0.4;
-    filter: blur(0.5px);
-  }
-
-  /* === Estilos de Contenido General === */
-  .content {
-    position: relative;
-    z-index: 1; /* Se asegura que el contenido esté sobre el canvas. */
-    color: #2D2D2D;
-    padding: 30px;
-    max-width: 800px;
-    margin: 40px auto;
-    background-color: rgba(255, 255, 255, 0.9);
-    border-radius: 15px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-    backdrop-filter: blur(10px);
-  }
-
-  .section-title {
-    font-size: 35px;
-    font-weight: 900;
-    margin-bottom: 0px;
-    margin-top: 30px;
-    color: #5bc0be;
-  }
-
-  /* === Sección de Experiencia === */
-  .experience-item {
+  /* Left panel */
+  .hero__panel {
+    background: var(--cream);
+    padding: 5rem 3rem 4rem 4rem;
     display: flex;
-    gap: 20px;
-    margin-bottom: 20px;
-    padding-bottom: 20px;
-    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1.4rem;
+    border-right: 1px solid var(--rule);
+    position: relative;
+    z-index: 2;
   }
 
-  .experience-item:last-child {
-    border-bottom: none;
-    margin-bottom: 0;
+  .hero__avatar {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--rule);
   }
 
-  .date-column {
-    flex-shrink: 0;
-    width: 120px;
-    font-size: 14px;
-  }
-
-  .content-column {
-    flex: 1;
-  }
-
-  .job-title {
-    font-size: 20px;
+  .hero__eyebrow {
+    font-size: .7rem;
     font-weight: 600;
-    margin-bottom: -5px;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: var(--sage);
   }
 
-  .company {
-    color: #2274a5;
-    font-size: 14px;
+  .hero__name {
+    font-family: 'Outfit', sans-serif;
+    font-size: clamp(2.6rem, 5vw, 4.2rem);
+    font-weight: 900;
+    line-height: 1.02;
+    letter-spacing: -0.03em;
+    color: var(--ink);
+  }
+
+  .hero__accent {
+    color: var(--sage);
+  }
+
+  .hero__bio {
+    font-size: .95rem;
+    line-height: 1.75;
+    color: var(--ink-2);
+    max-width: 380px;
     font-weight: 400;
   }
 
-  .description {
-    color: #000000;
-    font-size: 14px;
-    margin-bottom: 20px;
+  /* Social buttons */
+  .hero__socials {
+    display: flex;
+    gap: .85rem;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  .social-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    border: 1px solid var(--rule);
+    border-radius: 8px;
+    color: var(--ink-2);
+    background: #fff;
+    transition:
+      border-color .2s,
+      color .2s,
+      transform .2s cubic-bezier(.34,1.56,.64,1),
+      background .2s;
+    text-decoration: none;
+  }
+
+  .social-btn svg,
+  .social-btn img {
+    width: 16px;
+    height: 16px;
+    fill: currentColor;
+  }
+
+  .social-btn img {
+    filter: grayscale(1) opacity(.55);
+    transition: filter .2s;
+  }
+
+  .social-btn:hover {
+    border-color: var(--sage);
+    color: var(--sage);
+    background: #f0f7f4;
+    transform: translateY(-3px);
+  }
+
+  .social-btn:hover img {
+    filter: none;
+  }
+
+  /* Viz legend */
+  .viz-legend {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    margin-top: .5rem;
+    flex-wrap: wrap;
+  }
+
+  .viz-legend__dot {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .viz-legend__dot--trail { background: var(--sage); }
+  .viz-legend__dot--point { background: var(--rose); }
+
+  .viz-legend__label {
+    font-size: .68rem;
+    color: var(--dust);
+    letter-spacing: .04em;
+    margin-right: .6rem;
+  }
+
+  /* Right spacer (canvas is fixed) */
+  .hero__canvas-spacer { /* purely a layout column placeholder */ }
+
+  /* ═══════════════════════════════════════════════════
+     CONTENT AREA
+  ═══════════════════════════════════════════════════ */
+  .content-area {
+    background: var(--cream);
+    border-top: 1px solid var(--rule);
+    position: relative;
+    z-index: 2;
+  }
+
+  .section {
+    max-width: 740px;
+    margin: 0 auto;
+    padding: 4rem 2rem;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .section:last-child { border-bottom: none; }
+
+  .section-kicker {
+    font-size: .62rem;
+    font-weight: 700;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+    color: var(--dust);
+    margin-bottom: 2rem;
+  }
+
+  .section-sub {
+    font-size: .9rem;
+    color: var(--dust);
+    margin-top: -.75rem;
+    margin-bottom: 2rem;
     line-height: 1.6;
   }
 
-    /* Define la animación de rebote */
-  @keyframes bounce-arrow {
-    0%, 100% {
-      transform: translateY(0); /* Posición inicial y final */
-    }
-    50% {
-      transform: translateY(10px); /* Se mueve 10px hacia abajo en la mitad de la animación */
-    }
+  /* Scroll reveal */
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition:
+      opacity .65s cubic-bezier(.25,.46,.45,.94),
+      transform .65s cubic-bezier(.25,.46,.45,.94);
+  }
+  .reveal.visible { opacity: 1; transform: none; }
+
+  /* ═══════════════════════════════════════════════════
+     ABOUT
+  ═══════════════════════════════════════════════════ */
+  .about-grid {
+    display: flex;
+    gap: 1.75rem;
+    align-items: flex-start;
   }
 
-  /* Aplica la animación a la clase del enlace */
-  .animate-bounce-arrow {
-    animation: bounce-arrow 1.5s infinite; /* Nombre, duración, repetición infinita */
+  .about-bar {
+    flex-shrink: 0;
+    width: 2px;
+    min-height: 100px;
+    align-self: stretch;
+    background: var(--sage-lt);
+  }
+
+  .about-body p {
+    font-size: 1rem;
+    line-height: 1.85;
+    color: var(--ink-2);
+    margin-bottom: .9rem;
+  }
+  .about-body p:last-child { margin-bottom: 0; }
+
+  /* ═══════════════════════════════════════════════════
+     WORK EXPERIENCE
+  ═══════════════════════════════════════════════════ */
+  .xp-list { display: flex; flex-direction: column; }
+
+  .xp-item {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 1.4rem 0;
+    border-top: 1px solid var(--rule);
+    cursor: default;
+    transition: padding-left .25s cubic-bezier(.25,.46,.45,.94);
+  }
+
+  .xp-item:last-child { border-bottom: 1px solid var(--rule); }
+
+  .xp-item:hover {
+    padding-left: .5rem;
+  }
+
+  .xp-item:hover .xp-role { color: var(--sage); }
+
+  .xp-meta {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: .5rem;
+    flex-shrink: 0;
+    width: 130px;
+  }
+
+  .xp-date {
+    font-size: .68rem;
+    color: var(--peach);
+    font-weight: 600;
+    letter-spacing: .03em;
+    white-space: nowrap;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .xp-logo {
+    width: 36px;
+    height: 36px;
+    border-radius: 6px;
+    object-fit: contain;
+    opacity: .75;
+    border: 1px solid var(--rule);
+    background: #fff;
+    padding: 2px;
+    transition: opacity .2s;
+  }
+
+  .xp-item:hover .xp-logo { opacity: 1; }
+
+  .xp-body { flex: 1; }
+
+  .xp-role {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: .2rem;
+    transition: color .2s;
+    line-height: 1.3;
+  }
+
+  .xp-company {
+    font-size: .78rem;
+    color: var(--sky);
+    font-weight: 500;
+  }
+
+  /* ═══════════════════════════════════════════════════
+     SIDE PROJECTS
+  ═══════════════════════════════════════════════════ */
+  .proj-list { display: flex; flex-direction: column; }
+
+  .proj-item {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 1.4rem 1rem 1.4rem 0;
+    border-top: 1px solid var(--rule);
+    cursor: default;
+    transition: background .2s, padding-right .25s;
+  }
+
+  .proj-item:last-child { border-bottom: 1px solid var(--rule); }
+
+  .proj-item:hover { background: var(--cream-2); }
+  .proj-item:hover .proj-arrow { opacity: 1; transform: translateX(4px); color: var(--sage); }
+  .proj-item:hover .proj-num { color: var(--sage); }
+
+  .proj-num {
+    font-family: 'Outfit', sans-serif;
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--rule);
+    letter-spacing: -0.05em;
+    flex-shrink: 0;
+    min-width: 56px;
+    transition: color .2s;
+  }
+
+  .proj-content { flex: 1; }
+
+  .proj-title {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: .3rem;
+  }
+
+  .proj-desc {
+    font-size: .85rem;
+    color: var(--ink-2);
+    line-height: 1.65;
+  }
+
+  .proj-arrow {
+    font-size: 1.1rem;
+    color: var(--dust);
+    opacity: 0;
+    transition: opacity .2s, transform .2s, color .2s;
+    flex-shrink: 0;
+  }
+
+  .cta-link {
+    display: inline-flex;
+    align-items: center;
+    gap: .4rem;
+    margin-top: 1.5rem;
+    font-size: .82rem;
+    font-weight: 600;
+    color: var(--sage);
+    text-decoration: none;
+    letter-spacing: .02em;
+    transition: gap .2s;
+  }
+
+  .cta-link svg { width: 14px; height: 14px; transition: transform .2s; }
+  .cta-link:hover { gap: .65rem; }
+  .cta-link:hover svg { transform: translateX(3px); }
+
+  /* ═══════════════════════════════════════════════════
+     TERMINAL CERTS
+  ═══════════════════════════════════════════════════ */
+  .section--terminal {
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+    max-width: 860px;      /* slightly wider for terminal feel */
+  }
+
+  /* Title bar */
+  .term-bar {
+    display: flex;
+    align-items: center;
+    gap: .45rem;
+    background: #E8E2DB;
+    border: 1px solid var(--rule);
+    border-bottom: none;
+    border-radius: 8px 8px 0 0;
+    padding: .6rem 1rem;
+  }
+
+  .term-dot {
+    display: inline-block;
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .term-filename {
+    flex: 1;
+    text-align: center;
+    font-size: .7rem;
+    font-family: 'Courier New', monospace;
+    color: var(--dust);
+    letter-spacing: .04em;
+    margin-right: 36px;   /* optical center compensation */
+  }
+
+  /* Body */
+  .term-body {
+    background: #FDFCFA;
+    border: 1px solid var(--rule);
+    border-radius: 0 0 8px 8px;
+    padding: 1.1rem 1.4rem;
+    font-family: 'Courier New', monospace;
+    font-size: .8rem;
+    line-height: 1.9;
+    overflow-x: auto;
+  }
+
+  /* Prompt line */
+  .term-prompt {
+    margin-bottom: .35rem;
+    white-space: nowrap;
+    user-select: none;
+  }
+
+  .term-user   { color: var(--sage); font-weight: 700; }
+  .term-at     { color: var(--dust); }
+  .term-host   { color: var(--sky); font-weight: 700; }
+  .term-symbol { color: var(--dust); }
+  .term-cmd    { color: var(--ink); }
+
+  /* Log lines */
+  .log-line {
+    display: flex;
+    align-items: baseline;
+    gap: .7rem;
+    padding: .1rem .4rem;
+    border-radius: 4px;
+    cursor: default;
+    transition: background .15s;
+    flex-wrap: wrap;
+  }
+
+  .log-line:hover {
+    background: rgba(95, 158, 132, 0.08);  /* sage tint */
+  }
+
+  .log-ts {
+    color: var(--dust);
+    flex-shrink: 0;
+    letter-spacing: .04em;
+    font-size: .72rem;
+  }
+
+  .log-lvl {
+    background: var(--sage);
+    color: #fff;
+    font-size: .62rem;
+    font-weight: 700;
+    letter-spacing: .08em;
+    padding: .05rem .35rem;
+    border-radius: 3px;
+    flex-shrink: 0;
+    align-self: center;
+  }
+
+  .log-msg {
+    color: var(--ink);
+    font-weight: 600;
+    flex: 1;
+    min-width: 200px;
+  }
+
+  .log-src {
+    color: var(--mauve);
+    font-size: .72rem;
+    flex-shrink: 0;
+  }
+
+  .log-id {
+    color: var(--dust);
+    font-size: .68rem;
+    letter-spacing: .06em;
+    flex-shrink: 0;
+    opacity: .7;
+  }
+
+  /* Cursor line */
+  .term-cursor-line {
+    margin-top: .2rem;
+    color: var(--dust);
+    user-select: none;
+  }
+
+  .term-cursor {
+    color: var(--sage);
+    animation: blink .9s step-end infinite;
+  }
+
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50%       { opacity: 0; }
+  }
+
+  /* ═══════════════════════════════════════════════════
+     MOBILE
+  ═══════════════════════════════════════════════════ */
+  @media (max-width: 900px) {
+    .hero {
+      grid-template-columns: 1fr;
+      grid-template-rows: 1fr;
+    }
+    .hero__panel {
+      padding: 3rem 1.5rem;
+      border-right: none;
+      border-bottom: 1px solid var(--rule);
+    }
+    .hero__canvas-spacer { display: none; }
+
+    .xp-meta { width: 100px; }
+    .xp-logo { display: none; }
+
+    .cert-code { display: none; }
+
+    .section { padding: 3rem 1.5rem; }
+
+    .marquee-wrap { margin: 0 -1.5rem; }
+  }
+
+  /* ═══════════════════════════════════════════════════
+     MARQUEE STACK
+  ═══════════════════════════════════════════════════ */
+
+  /* Keyframes */
+  @keyframes scroll-left {
+    0%   { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+  @keyframes scroll-right {
+    0%   { transform: translateX(-50%); }
+    100% { transform: translateX(0); }
+  }
+
+  /* Outer wrapper — clips overflow + edge fades */
+  .section--stack { overflow: hidden; }
+
+  .marquee-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: .75rem;
+    margin: 0 -2rem;                    /* bleed past section padding */
+    -webkit-mask-image: linear-gradient(
+      to right,
+      transparent 0%,
+      black 8%,
+      black 92%,
+      transparent 100%
+    );
+    mask-image: linear-gradient(
+      to right,
+      transparent 0%,
+      black 8%,
+      black 92%,
+      transparent 100%
+    );
+  }
+
+  /* Each row */
+  .marquee {
+    overflow: hidden;
+    width: 100%;
+  }
+
+  .marquee__track {
+    display: flex;
+    gap: .75rem;
+    width: max-content;         /* wider than viewport */
+  }
+
+  .marquee__track--left {
+    animation: scroll-left 30s linear infinite;
+  }
+
+  .marquee__track--right {
+    animation: scroll-right 34s linear infinite;
+  }
+
+  /* Pause on hover over the whole section */
+  .section--stack:hover .marquee__track {
+    animation-play-state: paused;
+  }
+
+  /* Individual pill */
+  .tech-pill {
+    display: flex;
+    align-items: center;
+    gap: .55rem;
+    padding: .5rem .9rem;
+    background: #fff;
+    border: 1px solid var(--rule);
+    border-radius: 100px;
+    white-space: nowrap;
+    cursor: default;
+    transition: border-color .2s, background .2s;
+    flex-shrink: 0;
+  }
+
+  .tech-pill:hover {
+    border-color: var(--sage);
+    background: #f0f7f4;
+  }
+
+  .tech-pill img {
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+    display: block;
+    flex-shrink: 0;
+  }
+
+  .tech-pill span {
+    font-size: .78rem;
+    font-weight: 500;
+    color: var(--ink-2);
+    letter-spacing: .01em;
   }
 </style>
 
 <script>
-  document.addEventListener('DOMContentLoaded', function() {
-    const canvas = document.getElementById('game-of-life-canvas');
-    if (!canvas) return;
-    const ctx = canvas.getContext('2d');
-    
-    // --- Configuración del "Juego de la Vida" ---
-    let cellSize = 12;
-    let speed = 800; // Intervalo de actualización más lento para no distraer.
-    const specialColors = ['#8B93FF', '#40E0A4', '#FF8B8B']; // Colores sutiles para células especiales.
-    
-    let grid;
-    let cellColors;
-    let columns;
-    let rows;
-
-    // Ajusta el canvas a las dimensiones de la ventana y reinicia la simulación.
-    function resizeCanvas() {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-      initGame();
-    }
-    
-    // Inicializa la matriz del juego.
-    function initGame() {
-      columns = Math.ceil(canvas.width / cellSize);
-      rows = Math.ceil(canvas.height / cellSize);
-      
-      // Crea una matriz 2D con una densidad baja de células iniciales (15%).
-      grid = Array(columns).fill(null).map(() => Array(rows).fill(null).map(() => Math.random() > 0.85));
-      cellColors = Array(columns).fill(null).map(() => Array(rows).fill(null));
-      
-      draw();
-    }
-    
-    // Calcula el siguiente estado (generación) del juego.
-    function update() {
-      const nextGrid = Array(columns).fill(null).map(() => Array(rows).fill(false));
-      const nextColors = Array(columns).fill(null).map(() => Array(rows).fill(null));
-      
-      for (let x = 0; x < columns; x++) {
-        for (let y = 0; y < rows; y++) {
-          const state = grid[x][y];
-          let neighbors = 0;
-
-          // Cuenta los vecinos vivos de cada célula.
-          for (let i = -1; i <= 1; i++) {
-            for (let j = -1; j <= 1; j++) {
-              if (i === 0 && j === 0) continue;
-              // El operador de módulo (%) permite que el mundo sea toroidal (se conecta por los bordes).
-              const xi = (x + i + columns) % columns;
-              const yj = (y + j + rows) % rows;
-              if (grid[xi][yj]) neighbors++;
-            }
-          }
-          
-          // Aplica las reglas del Juego de la Vida.
-          if (state && (neighbors < 2 || neighbors > 3)) {
-            nextGrid[x][y] = false; // Muerte por soledad o sobrepoblación.
-          } else if (!state && neighbors === 3) {
-            nextGrid[x][y] = true;  // Nacimiento.
-          } else {
-            nextGrid[x][y] = state; // Supervivencia.
-            if (state) {
-              nextColors[x][y] = cellColors[x][y]; // Mantiene su color si sobrevive.
-            }
-          }
-          
-          // Lógica original de asignación de color, sin alteraciones.
-          // Para células vivas, se evalúa una probabilidad anidada.
-          if (nextGrid[x][y] && Math.random() < 0.03) {
-            // Si la primera probabilidad (3%) se cumple, se evalúa una segunda (8%).
-            if (Math.random() < 0.08) {
-              const colorIndex = Math.floor(Math.random() * specialColors.length);
-              nextColors[x][y] = specialColors[colorIndex];
-            } else {
-              // Si la segunda probabilidad no se cumple, la célula pierde su color.
-              nextColors[x][y] = null;
-            }
-          }
-        }
+  /* Scroll reveal */
+  const obs = new IntersectionObserver(
+    entries => entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        obs.unobserve(e.target);
       }
-      
-      grid = nextGrid;
-      cellColors = nextColors;
-    }
-    
-    // Dibuja la matriz actual en el canvas.
-    function draw() {
-      ctx.fillStyle = '#f0eee6'; // Color de fondo.
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
-      
-      for (let x = 0; x < columns; x++) {
-        for (let y = 0; y < rows; y++) {
-          if (grid[x][y]) {
-            // Usa color especial si existe, de lo contrario, el color por defecto.
-            ctx.fillStyle = cellColors[x][y] || '#D4D2C8';
-            // Dibuja rectángulos redondeados para una apariencia más suave.
-            ctx.beginPath();
-            ctx.roundRect(x * cellSize, y * cellSize, cellSize - 1, cellSize - 1, 2);
-            ctx.fill();
-          }
-        }
-      }
-    }
-    
-    // Bucle principal que actualiza y dibuja el juego a intervalos definidos.
-    function gameLoop() {
-      update();
-      draw();
-      setTimeout(gameLoop, speed);
-    }
-    
-    // --- Inicialización ---
-    window.addEventListener('resize', resizeCanvas);
-    resizeCanvas(); // Primera ejecución al cargar la página.
-    gameLoop();
-  });
+    }),
+    { threshold: 0.07, rootMargin: '0px 0px -30px 0px' }
+  );
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 </script>
