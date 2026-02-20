@@ -17,7 +17,7 @@ import TechIconMobile from '../components/TechiconMobile.astro'
     <div class="hero__panel">
       <img class="hero__avatar" src="/profile.webp" alt="Andrés Cruz Chipol" />
 
-      <p class="hero__eyebrow">Computer Scientist · AI Engineer</p>
+      <p class="hero__eyebrow">AI Engineer · Applied AI Research · MSc Computer Science</p>
 
       <h1 class="hero__name">
         Andres<br/>
@@ -25,8 +25,9 @@ import TechIconMobile from '../components/TechiconMobile.astro'
       </h1>
 
       <p class="hero__bio">
-        Building intelligent systems where theory and practice become one.
-        Research enthusiast and supporter of open source.
+        Building intelligent systems where theory meets production — from classical ML
+        to LLMs, agents, and MLOps pipelines. Currently pursuing a Master's in Computer
+        Science at Cinvestav, exploring advanced AI research.
       </p>
 
       <div class="hero__socials">
@@ -78,6 +79,43 @@ import TechIconMobile from '../components/TechiconMobile.astro'
       </div>
     </section>
 
+    <!-- EDUCATION -->
+    <section class="section section--edu reveal">
+      <h2 class="section-kicker">Education</h2>
+
+      <div class="edu-list">
+
+        <!-- MSc — current -->
+        <div class="edu-item">
+          <div class="edu-badge edu-badge--msc">MSc</div>
+          <div class="edu-body">
+            <h3 class="edu-degree">Master of Science in Computer Science</h3>
+            <span class="edu-field">Artificial Intelligence</span>
+            <span class="edu-school">Centro de Investigación y de Estudios Avanzados del IPN — Cinvestav</span>
+          </div>
+          <div class="edu-meta">
+            <span class="edu-years">2025 – 2027</span>
+            <span class="edu-status edu-status--active">In Progress</span>
+          </div>
+        </div>
+
+        <!-- BSc — completed -->
+        <div class="edu-item">
+          <div class="edu-badge edu-badge--bsc">BSc</div>
+          <div class="edu-body">
+            <h3 class="edu-degree">Bachelor in Computer Science</h3>
+            <span class="edu-field">Computational Science</span>
+            <span class="edu-school">Benemérita Universidad Autónoma de Puebla — BUAP</span>
+          </div>
+          <div class="edu-meta">
+            <span class="edu-years">2018 – 2023</span>
+            <span class="edu-status edu-status--done">Completed</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
     <!-- WORK EXPERIENCE — CI pipeline style -->
     <section class="section section--pipeline reveal">
       <h2 class="section-kicker">Work Experience</h2>
@@ -106,7 +144,7 @@ import TechIconMobile from '../components/TechiconMobile.astro'
             <div class="pipe-bar-wrap">
               <div class="pipe-bar" style="--fill:100%"></div>
             </div>
-            <span class="pipe-range">Aug 2024 – Aug 2025 · 12 mo</span>
+            <span class="pipe-range">Aug 2024 – Sep 2025 · 14 mo</span>
           </div>
         </div>
 
@@ -122,9 +160,9 @@ import TechIconMobile from '../components/TechiconMobile.astro'
           </div>
           <div class="pipe-right">
             <div class="pipe-bar-wrap">
-              <div class="pipe-bar" style="--fill:42%"></div>
+              <div class="pipe-bar" style="--fill:43%"></div>
             </div>
-            <span class="pipe-range">Nov 2022 – Apr 2023 · 5 mo</span>
+            <span class="pipe-range">Nov 2022 – Apr 2023 · 6 mo</span>
           </div>
         </div>
 
@@ -565,6 +603,124 @@ import TechIconMobile from '../components/TechiconMobile.astro'
     margin-bottom: .9rem;
   }
   .about-body p:last-child { margin-bottom: 0; }
+
+  /* ═══════════════════════════════════════════════════
+     EDUCATION
+  ═══════════════════════════════════════════════════ */
+  .edu-list { display: flex; flex-direction: column; gap: .5rem; }
+
+  .edu-item {
+    display: flex;
+    align-items: center;
+    gap: 1.1rem;
+    padding: .9rem 1rem;
+    border: 1px solid var(--rule);
+    border-radius: 8px;
+    background: #fff;
+    transition: border-color .2s, background .2s;
+  }
+
+  .edu-item:hover {
+    border-color: var(--sage-lt);
+    background: #f5fbf8;
+  }
+
+  .edu-badge {
+    flex-shrink: 0;
+    font-size: .6rem;
+    font-weight: 800;
+    letter-spacing: .1em;
+    padding: .3rem .5rem;
+    border-radius: 5px;
+    text-transform: uppercase;
+    min-width: 36px;
+    text-align: center;
+  }
+
+  .edu-badge--msc {
+    background: #e8f0f7;
+    color: var(--sky);
+    border: 1px solid #c5ddef;
+  }
+
+  .edu-badge--bsc {
+    background: #e8f5ef;
+    color: var(--sage);
+    border: 1px solid #c0e0d2;
+  }
+
+  .edu-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: .1rem;
+    min-width: 0;
+  }
+
+  .edu-degree {
+    font-family: 'Outfit', sans-serif;
+    font-size: .95rem;
+    font-weight: 700;
+    color: var(--ink);
+    line-height: 1.25;
+  }
+
+  .edu-field {
+    font-size: .75rem;
+    color: var(--mauve);
+    font-weight: 500;
+  }
+
+  .edu-school {
+    font-size: .7rem;
+    color: var(--dust);
+    margin-top: .1rem;
+  }
+
+  .edu-meta {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: .35rem;
+    flex-shrink: 0;
+  }
+
+  .edu-years {
+    font-size: .68rem;
+    color: var(--peach);
+    font-weight: 600;
+    letter-spacing: .03em;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+
+  .edu-status {
+    font-size: .6rem;
+    font-weight: 700;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    padding: .2rem .5rem;
+    border-radius: 99px;
+    white-space: nowrap;
+  }
+
+  .edu-status--active {
+    background: #dcf5eb;
+    color: var(--sage);
+    border: 1px solid #b8e8d2;
+    animation: pulse-active 2.5s ease-in-out infinite;
+  }
+
+  .edu-status--done {
+    background: var(--cream-2);
+    color: var(--dust);
+    border: 1px solid var(--rule);
+  }
+
+  @keyframes pulse-active {
+    0%, 100% { opacity: 1; }
+    50%       { opacity: .6; }
+  }
 
   /* ═══════════════════════════════════════════════════
      WORK EXPERIENCE — CI PIPELINE
