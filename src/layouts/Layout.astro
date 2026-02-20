@@ -5,12 +5,14 @@ export interface Props {
   title: string;
   description?: string;
   image?: string;
+  showCanvas?: boolean;
 }
 
 const {
   title,
   description = "Portfolio and blog of Andrés Cruz Chipol, passionate about artificial intelligence, data science, and software development.",
-  image = "/profile.webp"
+  image = "/profile.webp",
+  showCanvas = true,
 } = Astro.props;
 
 const siteName = "Andrés Cruz Chipol";
@@ -47,8 +49,8 @@ const twitterHandle = "@reschip";
   <div id="cursor-dot"></div>
   <div id="cursor-ring"></div>
 
-  <!-- The 3D canvas lives here — occupies the right half on hero, then becomes a subtle fixed bg -->
-  <canvas id="mesh-canvas"></canvas>
+  <!-- The 3D canvas lives here — only on homepage -->
+  {showCanvas && <canvas id="mesh-canvas"></canvas>}
 
   <!-- Page scroll wrapper -->
   <div class="page-wrapper">

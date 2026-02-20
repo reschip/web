@@ -287,14 +287,14 @@ import TechIconMobile from '../components/TechiconMobile.astro'
       <p class="section-sub">Explorations that begin as MVPs and move toward production-ready products.</p>
 
       <div class="proj-list">
-        <div class="proj-item" data-hover>
+        <a href="/sideprojects/snake-minimalist-game/" class="proj-item" data-hover>
           <span class="proj-num">01</span>
           <div class="proj-content">
             <h3 class="proj-title">Snake Minimalist Game</h3>
             <p class="proj-desc">Minimalist Flutter mobile game with a golden apple boost and a streamlined interface — on the way to Google Play Store.</p>
           </div>
           <span class="proj-arrow" aria-hidden="true">→</span>
-        </div>
+        </a>
       </div>
 
       <a href="/sideprojects" class="cta-link">
@@ -892,7 +892,9 @@ import TechIconMobile from '../components/TechiconMobile.astro'
     gap: 1.5rem;
     padding: 1.4rem 1rem 1.4rem 0;
     border-top: 1px solid var(--rule);
-    cursor: default;
+    cursor: pointer;
+    text-decoration: none;
+    color: inherit;
     transition: background .2s, padding-right .25s;
   }
 
