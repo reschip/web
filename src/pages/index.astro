@@ -1096,29 +1096,104 @@ import TechIconMobile from '../components/TechiconMobile.astro'
   }
 
   /* ═══════════════════════════════════════════════════
-     MOBILE
+     RESPONSIVE — TABLET  (≤ 900px)
   ═══════════════════════════════════════════════════ */
   @media (max-width: 900px) {
+    /* Hero: collapse split layout */
     .hero {
       grid-template-columns: 1fr;
-      grid-template-rows: 1fr;
     }
     .hero__panel {
-      padding: 3rem 1.5rem;
+      padding: 4rem 2.5rem 3rem;
       border-right: none;
       border-bottom: 1px solid var(--rule);
+      min-height: auto;
     }
     .hero__canvas-spacer { display: none; }
 
-    .xp-meta { width: 100px; }
-    .xp-logo { display: none; }
+    /* Content sections */
+    .section { padding: 3rem 2rem; }
 
-    .cert-code { display: none; }
+    /* Hero name */
+    .hero__name { font-size: clamp(2.4rem, 7vw, 3.5rem); }
 
-    .section { padding: 3rem 1.5rem; }
+    /* Pipeline: hide header, simplify row */
+    .pipeline-header { display: none; }
+    .pipe-job {
+      grid-template-columns: 60px 1fr;
+      grid-template-rows: auto auto;
+    }
+    .pipe-right {
+      grid-column: 2;
+      align-items: flex-start;
+    }
 
-    .marquee-wrap { margin: 0 -1.5rem; }
+    /* Marquee bleed */
+    .marquee-wrap { margin: 0 -2rem; }
+
+    /* Terminal */
+    .term-body { font-size: .78rem; }
+    .log-id { display: none; }
   }
+
+  /* ═══════════════════════════════════════════════════
+     RESPONSIVE — MOBILE  (≤ 600px)
+  ═══════════════════════════════════════════════════ */
+  @media (max-width: 600px) {
+    /* Hero */
+    .hero__panel {
+      padding: 3rem 1.25rem 2.5rem;
+    }
+    .hero__name    { font-size: clamp(2rem, 10vw, 3rem); }
+    .hero__bio     { font-size: .88rem; }
+    .hero__socials { gap: .5rem; }
+    .social-btn    { width: 34px; height: 34px; }
+
+    /* Sections */
+    .section { padding: 2.5rem 1.25rem; }
+    .section-kicker { font-size: .55rem; }
+    .section-sub    { font-size: .88rem; }
+
+    /* About */
+    .about-grid { flex-direction: column; }
+    .about-bar  { width: 100%; height: 2px; min-height: 0; align-self: auto; }
+
+    /* Education */
+    .edu-item {
+      flex-wrap: wrap;
+      gap: .75rem;
+    }
+    .edu-meta { align-items: flex-start; width: 100%; flex-direction: row; gap: .5rem; }
+    .edu-school { font-size: .65rem; }
+
+    /* Pipeline */
+    .pipe-job {
+      grid-template-columns: 1fr;
+      gap: .6rem;
+    }
+    .pipe-left  { flex-direction: row; }
+    .pipe-right { align-items: flex-start; }
+    .pipe-bar-wrap { width: 100%; }
+    .pipe-role  { font-size: .88rem; }
+
+    /* Side projects */
+    .proj-item { flex-direction: column; align-items: flex-start; gap: .75rem; }
+    .proj-num  { font-size: 2.4rem; }
+
+    /* Terminal */
+    .section--terminal { overflow-x: auto; }
+    .term-body {
+      font-size: .72rem;
+      min-width: 500px;
+    }
+    .term-bar { flex-wrap: wrap; }
+
+    /* Marquee: slower on mobile for readability */
+    .marquee__track--left  { animation-duration: 22s; }
+    .marquee__track--right { animation-duration: 26s; }
+    .marquee-wrap { margin: 0 -1.25rem; }
+  }
+
 
   /* ═══════════════════════════════════════════════════
      MARQUEE STACK

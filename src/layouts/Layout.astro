@@ -179,11 +179,19 @@ const twitterHandle = "@reschip";
   }
   .footer-link:hover { color: var(--sage); }
 
-  /* ─── Mobile ─────────────────────────────────────── */
-  @media (max-width: 768px) {
-    #mesh-canvas { width: 100%; opacity: .25; }
-    #cursor-dot, #cursor-ring { display: none; }
+  /* ─── Tablet + Mobile ────────────────────────────── */
+  @media (max-width: 900px) {
+    #mesh-canvas { display: none; }
   }
+
+  @media (max-width: 600px) {
+    #cursor-dot, #cursor-ring { display: none; }
+    footer {
+      padding: 1.25rem 1.5rem;
+      gap: 1rem;
+    }
+  }
+
 </style>
 
 <script>
