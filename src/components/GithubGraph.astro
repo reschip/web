@@ -1,0 +1,174 @@
+---
+// Fetch data from public API
+let data;
+try {
+  const response = await fetch('https://github-contributions-api.deno.dev/reschip.json');
+  data = await response.json();
+} catch (e) {
+  // Graceful fallback for build errors or rate limits
+  data = { totalContributions: 0, contributions: [] };
+}
+
+const weeks = data.contributions || [];
+const total = data.totalContributions || 0;
+
+// Levels mapped to our pastel palette
+// NONE, FIRST_QUARTILE, SECOND_QUARTILE, THIRD_QUARTILE, FOURTH_QUARTILE
+---
+
+<div class="gh-wrapper">
+  <div class="gh-header">
+    <div class="gh-meta">
+      <span class="gh-total">{total}</span>
+      <span class="gh-label">contributions in the last year</span>
+    </div>
+    <a href="https://github.com/reschip" target="_blank" rel="noopener noreferrer" class="gh-link">
+      @reschip →
+    </a>
+  </div>
+
+  <div class="gh-container">
+    <div class="gh-graph">
+      {weeks.map((week) => (
+        <div class="gh-week">
+          {week.map((day) => (
+            <div
+              class={`gh-day gh-day--${day.contributionLevel}`}
+              title={`${day.contributionCount} contributions on ${day.date}`}
+            ></div>
+          ))}
+        </div>
+      ))}
+    </div>
+  </div>
+
+  <div class="gh-footer">
+    <span class="gh-legend-label">Less</span>
+    <div class="gh-legend">
+      <div class="gh-day gh-day--NONE"></div>
+      <div class="gh-day gh-day--FIRST_QUARTILE"></div>
+      <div class="gh-day gh-day--SECOND_QUARTILE"></div>
+      <div class="gh-day gh-day--THIRD_QUARTILE"></div>
+      <div class="gh-day gh-day--FOURTH_QUARTILE"></div>
+    </div>
+    <span class="gh-legend-label">More</span>
+  </div>
+</div>
+
+<style>
+  .gh-wrapper {
+    background: #fff;
+    border: 1px solid var(--rule);
+    border-radius: 16px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 20px rgba(0,0,0,.03);
+    font-family: 'Inter', sans-serif;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .gh-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+
+  .gh-meta {
+    display: flex;
+    flex-direction: column;
+    gap: .15rem;
+  }
+
+  .gh-total {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--ink);
+    letter-spacing: -0.02em;
+    line-height: 1;
+  }
+
+  .gh-label {
+    font-size: .75rem;
+    font-weight: 500;
+    color: var(--dust);
+  }
+
+  .gh-link {
+    font-size: .8rem;
+    font-weight: 600;
+    color: var(--sage);
+    text-decoration: none;
+    transition: opacity .2s;
+  }
+  .gh-link:hover { opacity: .7; }
+
+  /* Graph container with horizontal scroll for mobile */
+  .gh-container {
+    overflow-x: auto;
+    padding-bottom: .5rem;
+    /* hide scrollbar */
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .gh-container::-webkit-scrollbar { display: none; }
+
+  .gh-graph {
+    display: flex;
+    gap: 4px;
+    width: fit-content;
+  }
+
+  .gh-week {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .gh-day {
+    width: 12px;
+    height: 12px;
+    border-radius: 3px;
+    background: var(--cream-2); /* fallback */
+    border: 1px solid rgba(0,0,0,0.04);
+  }
+
+  /* Color mapping based on GitHub quartiles but using our pastel system */
+  /* We use cream-2 for empty, and varying shades of sage/rose for activity */
+  .gh-day--NONE            { background: var(--cream-2); border-color: rgba(0,0,0,0.03); }
+  .gh-day--FIRST_QUARTILE  { background: #D2E4DC; } /* ultra light sage */
+  .gh-day--SECOND_QUARTILE { background: var(--sage-lt); } /* light sage */
+  .gh-day--THIRD_QUARTILE  { background: var(--sage); } /* primary sage */
+  .gh-day--FOURTH_QUARTILE { background: var(--rose); } /* highlight peak days with rose */
+
+  .gh-footer {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: .5rem;
+    font-size: .65rem;
+    color: var(--dust);
+    margin-top: -.25rem;
+  }
+
+  .gh-legend {
+    display: flex;
+    gap: 4px;
+  }
+</style>
+
+<script>
+  (function() {
+    const scrollToEnd = () => {
+      document.querySelectorAll('.gh-container').forEach(c => {
+        c.scrollLeft = c.scrollWidth;
+      });
+    };
+    // Run immediately
+    scrollToEnd();
+    // And also on load for safety
+    window.addEventListener('load', scrollToEnd);
+    document.addEventListener('astro:page-load', scrollToEnd);
+  })();
+</script>
